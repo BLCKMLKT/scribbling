@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="FilmDto" type="com.company.dto.FilmDto"/>
+		<typeAlias alias="ScribbleDto" type="com.company.dto.ScribbleDto"/>
+		<typeAlias alias="TagDto" type="com.company.dto.TagDto"/>
+	</typeAliases>
+</configuration>

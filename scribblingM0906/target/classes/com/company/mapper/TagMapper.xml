@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.mapper.TagMapper">
+	<select id="findTag" parameterType="String" resultType="String">
+	   SELECT tname
+	   FROM tag_library
+	   WHERE tname LIKE CONCAT(#{value}, '%') 
+	</select>
+	<select id="searchTaglib" parameterType="String">
+		SELECT tid
+		FROM tag_library
+		WHERE tname=#{value}
+	</select>
+	
+	<insert id="insertTag">
+		INSERT INTO tags
+		(sno, fcode, tid)
+		VALUES
+		(#{sno}, #{fcode}, #{tid})
+	</insert>
+</mapper>

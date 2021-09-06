@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.mapper.ScribbleMapper">
+	<insert id="insertScribble">
+		INSERT INTO scribbles
+		(sdate, uno, fcode, kcode, srate, scontent, sip)
+		VALUES
+		(#{sdate}, #{uno}, #{kcode}, #{srate}, #{scontent}, #{sip})
+	</insert>
+</mapper>

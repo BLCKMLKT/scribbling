@@ -7,6 +7,6 @@
 		INSERT INTO scribbles
 		(sdate, uno, fcode, kcode, srate, scontent, sip)
 		VALUES
-		(#{sdate}, #{uno}, #{kcode}, #{srate}, #{scontent}, #{sip})
+		(#{sdate}, #{uno}, #{fcode}, #{kcode}, #{srate}, #{scontent}, #{sip})
 	</insert>
 </mapper>

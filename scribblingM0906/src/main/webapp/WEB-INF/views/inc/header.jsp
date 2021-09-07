@@ -606,8 +606,8 @@ h3.panel-title {
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
 <%
 	Integer uno = null;
-	if(request.getSession().getServletContext().getContext("/scribbling0831").getAttribute("uno")!=null) {
-		uno = (Integer) request.getSession().getServletContext().getContext("/scribbling0831").getAttribute("uno");
+	if(request.getSession().getServletContext().getContext("/lnscribbling").getAttribute("uno")!=null) {
+		uno = (Integer) request.getSession().getServletContext().getContext("/lnscribbling").getAttribute("uno");
 	}
 %>
 <c:set var="url" value="${pageContext.request.requestURL}" />

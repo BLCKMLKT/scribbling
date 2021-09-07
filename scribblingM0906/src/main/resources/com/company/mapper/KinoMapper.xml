@@ -24,4 +24,9 @@
     GROUP BY kname
     ORDER BY kname
   </select>
+  <select id="searchKino" parameterType="Integer">
+  	SELECT kcode
+  	FROM kinos
+  	WHERE kname={value}
+  </select>
 </mapper>

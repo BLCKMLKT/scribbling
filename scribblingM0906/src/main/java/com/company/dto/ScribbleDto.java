@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class ScribbleDto {
-	private int sno;
+	private Integer sno;
 	private String sdate;
-	private int uno, fcode, kcode, srate;
+	private Integer uno, fcode, kcode, srate;
 	private String scontent, sip, spublishdate;
 }

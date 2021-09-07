@@ -8,11 +8,20 @@
 	   FROM tag_library
 	   WHERE tname LIKE CONCAT(#{value}, '%') 
 	</select>
-	<select id="searchTaglib" parameterType="String">
+	<select id="searchTaglib" parameterType="String" resultType="Integer">
 		SELECT tid
 		FROM tag_library
 		WHERE tname=#{value}
 	</select>
+	<insert id="insertTaglib">
+		INSERT INTO tag_library
+		(tname)
+		VALUES
+		(#{tname})
+		<selectKey keyProperty="tid" resultType="Integer">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
 	
 	<insert id="insertTag">
 		INSERT INTO tags

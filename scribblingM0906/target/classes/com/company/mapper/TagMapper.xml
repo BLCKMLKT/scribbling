@@ -8,7 +8,7 @@
 	   FROM tag_library
 	   WHERE tname LIKE CONCAT(#{value}, '%') 
 	</select>
-	<select id="searchTaglib" parameterType="String">
+	<select id="searchTaglib" parameterType="String" resultType="String">
 		SELECT tid
 		FROM tag_library
 		WHERE tname=#{value}

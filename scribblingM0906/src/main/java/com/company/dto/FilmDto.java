@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class FilmDto {
-	private int fcode;
+	private Integer fcode;
 	private String fname;
 	private int frelease;
 	private String fdirector;

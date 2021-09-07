@@ -4,5 +4,5 @@ import com.company.dto.FilmDto;
 
 public interface FilmMapper {
 	public FilmDto searchFilm(FilmDto fdto);
-	public int insertFilm(FilmDto fdto);
+	public FilmDto insertFilm(FilmDto fdto);
 }

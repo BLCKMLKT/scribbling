@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class TagDto {
-	private int tno, sno, fcode, tid;
+	private Integer tno, sno, fcode, tid;
 }

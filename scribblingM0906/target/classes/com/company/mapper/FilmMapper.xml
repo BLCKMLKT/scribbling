@@ -13,5 +13,8 @@
 		(fname, frelease, fdirector, fcast)
 		VALUES
 		(#{fname}, #{frelease}, #{fdirector}, #{fcast})
+		<selectKey keyProperty="fcode" resultType="FilmDto">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
 	</insert>
 </mapper>

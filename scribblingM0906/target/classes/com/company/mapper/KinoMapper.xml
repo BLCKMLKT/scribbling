@@ -24,7 +24,7 @@
     GROUP BY kname
     ORDER BY kname
   </select>
-  <select id="searchKino" parameterType="String">
+  <select id="searchKino" parameterType="Integer">
   	SELECT kcode
   	FROM kinos
   	WHERE kname={value}

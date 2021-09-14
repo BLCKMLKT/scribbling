@@ -14,6 +14,7 @@ import com.company.dto.ScribbleDto;
 import com.company.service.FilmService;
 import com.company.service.KinoService;
 import com.company.service.ScribbleService;
+import com.company.service.TagService;
 
 @Controller
 @RequestMapping("/scribble/*")
@@ -24,6 +25,8 @@ public class ScribbleController {
 	private KinoService kservice;
 	@Autowired
 	private ScribbleService sservice;
+	@Autowired
+	private TagService tservice;
 	
 	@RequestMapping(value="/write", method=RequestMethod.GET)
 	public String write_view() {
@@ -36,7 +39,8 @@ public class ScribbleController {
 		if(fdto.getFcode()==null) { fdto = fservice.insertFilm(request, fdto); }
 		Integer kcode = kservice.searchKino(request);
 		ScribbleDto sdto = sservice.insertScribble(request, fdto, kcode);
-		
+		tservice.insertTag(request, sdto);
+		// 성공 페이지로 redirect
 	}
 	@RequestMapping(value="/edit", method=RequestMethod.GET)
 	public String edit() {

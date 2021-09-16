@@ -611,7 +611,7 @@ h3.panel-title {
 	}
 %>
 <c:set var="url" value="${pageContext.request.requestURL}" />
-<c:set var="member" value="${fn:replace(url, pageContext.request.requestURI, '/scribbling0831')}"/>
+<c:set var="member" value="${fn:replace(url, pageContext.request.requestURI, '/lnscribbling')}"/>
 <nav class="navbar navbar-fixed-top">
 	<div class="navbar-bar">
 		<div class="navbar-header">

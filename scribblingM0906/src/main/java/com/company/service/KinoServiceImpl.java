@@ -51,12 +51,4 @@ public class KinoServiceImpl implements KinoService {
 		String json = new Gson().toJson(list);
 		out.println(json);
 	}
-
-	@Override
-	public Integer searchKino(HttpServletRequest request) throws Exception {
-		request.setCharacterEncoding("UTF-8");
-		String kname = request.getParameter("skino");
-		Integer kcode = kmapper.searchKino(kname);
-		return kcode;
-	}
 }

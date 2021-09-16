@@ -10,9 +10,9 @@
 	</select>
 	<insert id="insertFilm">
 		INSERT INTO films
-		(fname, frelease, fdirector, fcast)
+		(fname, frelease, fdirector, fcast, fimg)
 		VALUES
-		(#{fname}, #{frelease}, #{fdirector}, #{fcast})
+		(#{fname}, #{frelease}, #{fdirector}, #{fcast}, #{fimg})
 		<selectKey keyProperty="fcode" resultType="FilmDto">
 			SELECT LAST_INSERT_ID()
 		</selectKey>

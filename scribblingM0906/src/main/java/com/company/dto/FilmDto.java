@@ -9,4 +9,5 @@ public class FilmDto {
 	private int frelease;
 	private String fdirector;
 	private String fcast;
+	private String fimg;
 }

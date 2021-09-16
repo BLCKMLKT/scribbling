@@ -215,6 +215,14 @@ $(document).on('submit', '#scribble-form', function() {
 		var target = $(this).text().replace("# ", "");
 		$('#scribble-tags').val($('#scribble-tags').val() + target + "|");
 	});
+	$('.scribble-cast p').each(function() {
+		var cast = $(this).text();
+		$('#scast').val($('#scast'))
+	}); // 캐스트 히든 태그에 추가하기
+	
+	var poster = $('.scribble-poster img').attr('src');
+	$('#sposter').val(poster);
+	
 	if($('.scribble-rate input[type=radio]').is(':checked')==false) {
 		alert('별점을 입력해주세요.'); return false;
 	}

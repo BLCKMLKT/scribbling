@@ -7,5 +7,5 @@ import com.company.dto.FilmDto;
 import com.company.dto.ScribbleDto;
 
 public interface ScribbleService {
-	public ScribbleDto insertScribble(HttpServletRequest request, FilmDto fdto, Integer kcode) throws Exception;
+	public Integer insertScribble(HttpServletRequest request) throws Exception;
 }

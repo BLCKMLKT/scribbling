@@ -42,8 +42,9 @@ public class ScribbleServiceImpl implements ScribbleService {
 			fdto.setFdirector(request.getParameter("sdirector"));
 			fdto.setFcast(request.getParameter("scast"));
 			fdto.setFimg(request.getParameter("sposter"));
-			fdto = fmapper.searchFilm(fdto); // fcode 찾아오기
-			if(fdto.getFcode()==null) { fdto = fmapper.insertFilm(fdto); } // 등록하기
+			FilmDto temp = fmapper.searchFilm(fdto); // fcode 찾아오기
+			if(temp==null) { fdto.setFcode(fmapper.insertFilm(fdto)); } // 등록하기
+			else { fdto.setFcode(temp.getFcode()); }
 			// 2. kinos 테이블에서 kcode 찾기
 			String kname = request.getParameter("skino");
 			Integer kcode = kmapper.searchKino(kname);
@@ -57,24 +58,24 @@ public class ScribbleServiceImpl implements ScribbleService {
 			if(srateParam!=null) { sdto.setSrate(Integer.parseInt(srateParam)); } 
 			sdto.setScontent(request.getParameter("scontent"));
 			sdto.setSip(InetAddress.getLocalHost().getHostAddress());
-			sdto = smapper.insertScribble(sdto);
-			if(sdto.getSno()==null) { return 0; } // 등록 실패 시 빠져나가기
+			sdto.setSno(smapper.insertScribble(sdto));
 			// 4. tag_library에서 tid 찾기
 			String[] tnames = request.getParameter("stags").split("|");
 			Integer[] tids = new Integer[tnames.length];
 			TagDto tdto = new TagDto();
-			tdto.setSno(sdto.getSno()); tdto.setFcode(sdto.getFcode());
 			for(int i=0; i<tnames.length; i++) {
 				Integer tid = tmapper.searchTaglib(tnames[i]);
 				if(tid==null) { tid = tmapper.insertTaglib(tnames[i]); }
 				tids[i] = tid;
 			} // tid 찾기 or 태그 라이브러리에 등록하기
+			tdto.setSno(sdto.getSno()); tdto.setFcode(sdto.getFcode());
 			for(int i=0; i<tids.length; i++) {
 				tdto.setTid(tids[i]);
 				tmapper.insertTag(tdto);
 			} // 태그 등록하기
 	    } catch(Exception e) {
-	        TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+	        e.printStackTrace();
+	    	TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 	        return -1; // 오류 발생 시 빠져나가기
 	    }
 		return 1; // 성공 시

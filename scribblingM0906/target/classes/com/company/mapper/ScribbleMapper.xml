@@ -8,7 +8,7 @@
 		(sdate, uno, fcode, kcode, srate, scontent, sip)
 		VALUES
 		(#{sdate}, #{uno}, #{fcode}, #{kcode}, #{srate}, #{scontent}, #{sip})
-		<selectKey keyProperty="sno" resultType="ScribbleDto">
+		<selectKey keyProperty="sno" resultType="integer">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>

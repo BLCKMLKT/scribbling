@@ -13,7 +13,7 @@
 		(fname, frelease, fdirector, fcast, fimg)
 		VALUES
 		(#{fname}, #{frelease}, #{fdirector}, #{fcast}, #{fimg})
-		<selectKey keyProperty="fcode" resultType="FilmDto">
+		<selectKey keyProperty="fcode" resultType="integer">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>

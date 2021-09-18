@@ -66,10 +66,10 @@
 							<div class="scribble-info-group">
 								<div class="scribble-info-title">
 									<span>출연진</span>
+									<input type="hidden" id="scast" name="scast" />
 								</div>
 								<div class="scribble-info-item scribble-cast">
-			<!-- 출연진 -->			<input type="hidden" id="scast" name="scast" />
-								</div>
+			<!-- 출연진 -->		</div>
 							</div>
 						</div>
 					</div>

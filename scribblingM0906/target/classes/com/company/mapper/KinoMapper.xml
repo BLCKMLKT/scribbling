@@ -3,30 +3,30 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.company.mapper.KinoMapper">
-  <select id="findKinoProvince" parameterType="String" resultType="String">
+  <select id="findKinoProvince" parameterType="string" resultType="string">
     SELECT kprovince 
     FROM kinos 
     WHERE kbrand=#{value} 
     GROUP BY kprovince
     ORDER BY kprovince
   </select>
-  <select id="findKinoDistrict" parameterType="String" resultType="String">
+  <select id="findKinoDistrict" parameterType="string" resultType="string">
     SELECT kdistrict 
     FROM kinos 
     WHERE kbrand=#{param1} AND kprovince=#{param2} 
     GROUP BY kdistrict 
     ORDER BY kdistrict
   </select>
-  <select id="findKino" parameterType="String" resultType="String">
+  <select id="findKino" parameterType="string" resultType="string">
     SELECT kname 
     FROM kinos 
     WHERE kbrand=#{param1} AND kprovince=#{param2} AND kdistrict=#{param3}
     GROUP BY kname
     ORDER BY kname
   </select>
-  <select id="searchKino" parameterType="Integer">
+  <select id="searchKino" parameterType="string" resultType="integer">
   	SELECT kcode
   	FROM kinos
-  	WHERE kname={value}
+  	WHERE kname=#{param1}
   </select>
 </mapper>

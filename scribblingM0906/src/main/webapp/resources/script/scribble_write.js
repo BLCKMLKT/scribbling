@@ -95,7 +95,7 @@ $(document).on('click', '.scribble-title-result input[type=button]', function() 
 		$('#sdirector').val(filmInfo.director.substr(0,filmInfo.director.length-1));
 		$('#scast').val(filmInfo.actor);
 		var cast = filmInfo.actor.split('|');
-		$('.scribble-cast').text("");
+		$('.scribble-cast').html("");
 		for(var i in cast) {
 			$('.scribble-cast').append("<p>" + cast[i] + "</p>");
 		}
@@ -215,11 +215,6 @@ $(document).on('submit', '#scribble-form', function() {
 		var target = $(this).text().replace("# ", "");
 		$('#scribble-tags').val($('#scribble-tags').val() + target + "|");
 	});
-	$('.scribble-cast p').each(function() {
-		var cast = $(this).text();
-		$('#scast').val($('#scast'))
-	}); // 캐스트 히든 태그에 추가하기
-	
 	var poster = $('.scribble-poster img').attr('src');
 	$('#sposter').val(poster);
 	

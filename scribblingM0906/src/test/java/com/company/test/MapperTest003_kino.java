@@ -17,10 +17,10 @@ public class MapperTest003_kino {
 	@Autowired
 	private KinoMapper mapper;
 	@Test
-	public void test() {
-		List<String> result = mapper.findKinoProvince("CGV");
-		System.out.println(result);
-	}
+//	public void test() {
+//		List<String> result = mapper.findKinoProvince("CGV");
+//		System.out.println(result);
+//	}
 //	public void test() {
 //		List<String> list = mapper.findKinoDistrict("CGV", "강원도");
 //		String json = new Gson().toJson(list);
@@ -31,4 +31,9 @@ public class MapperTest003_kino {
 //		String json = new Gson().toJson(list);
 //		System.out.println(json);
 //	}
+	public void test() {
+		String kname = "CGV 강릉";
+		Integer kcode = mapper.searchKino(kname);
+		System.out.println("kcode : " + kcode);
+	}
 }

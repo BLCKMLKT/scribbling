@@ -3,12 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.company.mapper.TagMapper">
-	<select id="findTag" parameterType="String" resultType="String">
+	<select id="findTag" parameterType="string" resultType="string">
 	   SELECT tname
 	   FROM tag_library
 	   WHERE tname LIKE CONCAT(#{value}, '%') 
 	</select>
-	<select id="searchTaglib" parameterType="String" resultType="Integer">
+	<select id="searchTaglib" parameterType="string" resultType="integer">
 		SELECT tid
 		FROM tag_library
 		WHERE tname=#{value}
@@ -18,7 +18,7 @@
 		(tname)
 		VALUES
 		(#{tname})
-		<selectKey keyProperty="tid" resultType="Integer">
+		<selectKey keyProperty="tid" resultType="integer">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>

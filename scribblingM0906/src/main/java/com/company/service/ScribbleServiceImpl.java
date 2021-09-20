@@ -1,6 +1,7 @@
 package com.company.service;
 
 import java.net.InetAddress;
+import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,7 +18,10 @@ import com.company.mapper.KinoMapper;
 import com.company.mapper.ScribbleMapper;
 import com.company.mapper.TagMapper;
 
+import lombok.extern.log4j.Log4j;
+
 @Service
+@Log4j
 public class ScribbleServiceImpl implements ScribbleService {
 	@Autowired
 	private ScribbleMapper smapper;
@@ -59,15 +63,16 @@ public class ScribbleServiceImpl implements ScribbleService {
 			sdto.setScontent(request.getParameter("scontent"));
 			sdto.setSip(InetAddress.getLocalHost().getHostAddress());
 			sdto.setSno(smapper.insertScribble(sdto));
+			
 			// 4. tag_library에서 tid 찾기
-			String[] tnames = request.getParameter("stags").split("|");
+			String[] tnames = request.getParameter("stags").split("\\|");
 			Integer[] tids = new Integer[tnames.length];
-			TagDto tdto = new TagDto();
 			for(int i=0; i<tnames.length; i++) {
 				Integer tid = tmapper.searchTaglib(tnames[i]);
 				if(tid==null) { tid = tmapper.insertTaglib(tnames[i]); }
 				tids[i] = tid;
 			} // tid 찾기 or 태그 라이브러리에 등록하기
+			TagDto tdto = new TagDto();
 			tdto.setSno(sdto.getSno()); tdto.setFcode(sdto.getFcode());
 			for(int i=0; i<tids.length; i++) {
 				tdto.setTid(tids[i]);

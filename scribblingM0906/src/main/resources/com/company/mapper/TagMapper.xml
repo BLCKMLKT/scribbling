@@ -13,10 +13,7 @@
 		FROM tag_library
 		WHERE tname=#{value}
 	</select>
-	<insert id="insertTaglib">
-		<selectKey keyProperty="tid" order="BEFORE" resultType="integer">
-			SELECT LAST_INSERT_ID()
-		</selectKey>
+	<insert id="insertTaglib" useGeneratedKeys="false" keyProperty="tid">
 		INSERT INTO tag_library
 		(tname)
 		VALUES

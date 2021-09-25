@@ -1,6 +1,7 @@
 package com.company.controller;
 
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.company.dto.ScribbleListDto;
 import com.company.service.ScribbleService;
 
 @Controller
@@ -49,7 +51,11 @@ public class ScribbleController {
 		return "/scribble/detail";
 	}
 	@RequestMapping(value="/list", method=RequestMethod.GET)
-	public String list() {
+	public String list(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		List<ScribbleListDto> list = sservice.scribbleList(request);
+		request.setAttribute("list", list);
 		return "/scribble/list";
 	}
 	@RequestMapping(value="/delete", method=RequestMethod.GET)

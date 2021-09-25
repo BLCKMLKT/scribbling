@@ -12,4 +12,11 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
+	<select id="listScribble" parameterType="integer" resultType="ScribbleListDto">
+		SELECT a.*
+		FROM scribbles
+		WHERE uno=#{param1}
+		ORDER BY sno DESC
+		LIMIT (#{param2}, #{param3})
+	</select>
 </mapper>

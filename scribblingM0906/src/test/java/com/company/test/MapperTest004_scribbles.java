@@ -20,13 +20,14 @@ public class MapperTest004_scribbles {
 	@Test
 	public void insertScribble() throws UnknownHostException {
 		ScribbleDto dto = new ScribbleDto();
-		dto.setSdate("2021/09/06");
-		dto.setUno(1);
-		dto.setFcode(1);
-		dto.setKcode(1);
-		dto.setSrate(1);
-		dto.setScontent("test");
+		dto.setSdate("2021/09/21");
+		dto.setUno(3);
+		dto.setFcode(3);
+		dto.setKcode(3);
+		dto.setSrate(3);
+		dto.setScontent("test3");
 		dto.setSip(InetAddress.getLocalHost().getHostAddress());
 		mapper.insertScribble(dto);
+		System.out.println("last insert sno : " + dto.getSno());
 	}
 }

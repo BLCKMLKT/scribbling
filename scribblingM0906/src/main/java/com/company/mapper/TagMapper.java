@@ -6,8 +6,8 @@ import com.company.dto.TagDto;
 
 public interface TagMapper {
 	public List<String> findTag(String tname);
-	public Integer searchTaglib(String tname);
-	public Integer insertTaglib(String tname);
+	public Integer searchTaglib(TagDto tdto);
+	public Integer insertTaglib(TagDto tdto);
 	
 	public int insertTag(TagDto tdto);
 }

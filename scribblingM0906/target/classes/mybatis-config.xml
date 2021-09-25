@@ -7,5 +7,6 @@
 		<typeAlias alias="FilmDto" type="com.company.dto.FilmDto"/>
 		<typeAlias alias="ScribbleDto" type="com.company.dto.ScribbleDto"/>
 		<typeAlias alias="TagDto" type="com.company.dto.TagDto"/>
+		<typeAlias alias="ScribbleListDto" type="com.company.dto.ScribbleListDto"/>
 	</typeAliases>
 </configuration>

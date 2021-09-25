@@ -26,13 +26,9 @@ public class MapperTest002_tag {
 //		String tid1 = tmapper.searchTaglib("정극");
 //		System.out.println(tid + " / " + tid1);
 //	}
-//	public void insertTag() {
-//		TagDto dto = new TagDto();
-//		dto.setTid(1); dto.setSno(1); dto.setFcode(1);
-//		tmapper.insertTag(dto);
-//	}
-	public void test() {
-		Integer tid = tmapper.insertTaglib("테스트");
-		System.out.println("last insert id : " + tid);
+	public void insertTag() {
+		TagDto dto = new TagDto();
+		dto.setTid(1); dto.setSno(1); dto.setFcode(1);
+		tmapper.insertTag(dto);
 	}
 }

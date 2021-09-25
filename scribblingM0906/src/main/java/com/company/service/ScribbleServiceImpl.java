@@ -1,9 +1,10 @@
 package com.company.service;
 
 import java.net.InetAddress;
-import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,16 +13,14 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.company.dto.FilmDto;
 import com.company.dto.ScribbleDto;
+import com.company.dto.ScribbleListDto;
 import com.company.dto.TagDto;
 import com.company.mapper.FilmMapper;
 import com.company.mapper.KinoMapper;
 import com.company.mapper.ScribbleMapper;
 import com.company.mapper.TagMapper;
 
-import lombok.extern.log4j.Log4j;
-
 @Service
-@Log4j
 public class ScribbleServiceImpl implements ScribbleService {
 	@Autowired
 	private ScribbleMapper smapper;
@@ -46,9 +45,8 @@ public class ScribbleServiceImpl implements ScribbleService {
 			fdto.setFdirector(request.getParameter("sdirector"));
 			fdto.setFcast(request.getParameter("scast"));
 			fdto.setFimg(request.getParameter("sposter"));
-			FilmDto temp = fmapper.searchFilm(fdto); // fcode 찾아오기
-			if(temp==null) { fdto.setFcode(fmapper.insertFilm(fdto)); } // 등록하기
-			else { fdto.setFcode(temp.getFcode()); }
+			fdto.setFcode(fmapper.searchFilm(fdto)); // fcode 찾아오기
+			if(fdto.getFcode()==null) { fmapper.insertFilm(fdto); } // 등록하기
 			// 2. kinos 테이블에서 kcode 찾기
 			String kname = request.getParameter("skino");
 			Integer kcode = kmapper.searchKino(kname);
@@ -62,27 +60,36 @@ public class ScribbleServiceImpl implements ScribbleService {
 			if(srateParam!=null) { sdto.setSrate(Integer.parseInt(srateParam)); } 
 			sdto.setScontent(request.getParameter("scontent"));
 			sdto.setSip(InetAddress.getLocalHost().getHostAddress());
-			sdto.setSno(smapper.insertScribble(sdto));
-			
+			smapper.insertScribble(sdto);
 			// 4. tag_library에서 tid 찾기
 			String[] tnames = request.getParameter("stags").split("\\|");
-			Integer[] tids = new Integer[tnames.length];
-			for(int i=0; i<tnames.length; i++) {
-				Integer tid = tmapper.searchTaglib(tnames[i]);
-				if(tid==null) { tid = tmapper.insertTaglib(tnames[i]); }
-				tids[i] = tid;
-			} // tid 찾기 or 태그 라이브러리에 등록하기
 			TagDto tdto = new TagDto();
 			tdto.setSno(sdto.getSno()); tdto.setFcode(sdto.getFcode());
-			for(int i=0; i<tids.length; i++) {
-				tdto.setTid(tids[i]);
+			for(int i=0; i<tnames.length; i++) {
+				tdto.setTname(tnames[i]);
+				tdto.setTid(tmapper.searchTaglib(tdto));
+				if(tdto.getTid()==null) { tmapper.insertTaglib(tdto); }
 				tmapper.insertTag(tdto);
-			} // 태그 등록하기
+			} // tid 찾기 or 태그 라이브러리에 등록하기 & 태그 등록하기
 	    } catch(Exception e) {
 	        e.printStackTrace();
 	    	TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 	        return -1; // 오류 발생 시 빠져나가기
 	    }
 		return 1; // 성공 시
+	}
+
+	@Override
+	public List<ScribbleListDto> scribbleList(HttpServletRequest request) throws Exception {
+		request.setCharacterEncoding("UTF-8");
+		int startNum = 0; int pageLmt = 10;
+		Integer uno = (Integer) request.getSession().getServletContext().getContext("/lnscribbling").getAttribute("uno");
+		if(request.getParameter("startNum")!=null) {
+			startNum = Integer.parseInt(request.getParameter("startNum"));
+		}
+		if(request.getParameter("pageLmt")!=null) {
+			pageLmt = Integer.parseInt(request.getParameter("pageLmt"));
+		}
+		return smapper.listScribble(uno, startNum, pageLmt);
 	}
 }

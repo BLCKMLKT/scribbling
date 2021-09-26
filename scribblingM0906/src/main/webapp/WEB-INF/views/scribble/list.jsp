@@ -39,11 +39,13 @@
 				<c:forEach var="sldto" items="${list}" varStatus="status">
 					<div class="scribble-item-info">
 						<div class="info-item">
-							<a class="info-item-title" href="<c:url value="/scribble/detail?sno=${sldto.sno}" />"></a>
-							<span class="into-item-dateplace">${sdto.sdate} · </span>
+							<a class="info-item-title" href="<c:url value="/scribble/detail?sno=${sldto.sno}" />">${sdto.fname}</a>
+							<span class="into-item-dateplace">${sdto.sdate} · ${sdto.kname}</span>
 						</div>
 						<div class="info-item">
-							<span class="info-item-rank">★ ★ ★ ★ ★</span>
+							<span class="info-item-rank">
+							<c:forEach var="i" begin="0" end="${list.size()}" step="1"></c:forEach>
+							</span>
 							<span class="info-item-tags">#여성히어로 #마블시리즈 #코믹스원작</span>
 						</div>
 						<div class="info-item-content">

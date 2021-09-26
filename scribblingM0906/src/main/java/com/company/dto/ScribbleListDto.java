@@ -1,10 +1,15 @@
 package com.company.dto;
 
+import java.util.List;
+
+import lombok.Data;
+
+@Data
 public class ScribbleListDto {
 	private Integer sno;
 	private String sdate;
 	private Integer srate;
-	private String fname, fimg;
+	private String scontent, fname, fimg;
 	private String kname, spublishdate;
-	private String[] tags;
+	private List<String> tags;
 }

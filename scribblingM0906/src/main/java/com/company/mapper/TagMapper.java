@@ -10,4 +10,5 @@ public interface TagMapper {
 	public Integer insertTaglib(TagDto tdto);
 	
 	public int insertTag(TagDto tdto);
+	public List<String> listTags(Integer sno);
 }

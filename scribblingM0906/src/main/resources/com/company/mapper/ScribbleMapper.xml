@@ -13,10 +13,12 @@
 		</selectKey>
 	</insert>
 	<select id="listScribble" parameterType="integer" resultType="ScribbleListDto">
-		SELECT a.*
-		FROM scribbles
+		SELECT s.sno, s.sdate, s.srate, f.fname, f.fimg, k.kname, s.spublishdate, s.scontent
+		FROM scribbles as s
+		JOIN films as f ON s.fcode=f.fcode
+		JOIN kinos as k ON s.kcode=k.kcode
 		WHERE uno=#{param1}
 		ORDER BY sno DESC
-		LIMIT (#{param2}, #{param3})
+		LIMIT #{param2}, #{param3}
 	</select>
 </mapper>

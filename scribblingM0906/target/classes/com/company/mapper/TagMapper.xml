@@ -29,4 +29,11 @@
 		VALUES
 		(#{sno}, #{fcode}, #{tid})
 	</insert>
+	<select id="listTags" parameterType="integer" resultType="string">
+		SELECT tl.tname
+		FROM tag_library as tl
+		JOIN tags as t
+		ON t.tid=tl.tid
+		WHERE sno=#{value}
+	</select>
 </mapper>

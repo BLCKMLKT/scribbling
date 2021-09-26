@@ -90,6 +90,14 @@ public class ScribbleServiceImpl implements ScribbleService {
 		if(request.getParameter("pageLmt")!=null) {
 			pageLmt = Integer.parseInt(request.getParameter("pageLmt"));
 		}
-		return smapper.listScribble(uno, startNum, pageLmt);
+		List<ScribbleListDto> sList = smapper.listScribble(uno, startNum, pageLmt);
+		if(sList!=null) {
+			for(int i=0; i<sList.size(); i++) {
+				ScribbleListDto temp = sList.get(i);
+				List<String> tList = tmapper.listTags(temp.getSno());
+				temp.setTags(tList);
+			}
+		}
+		return sList;
 	}
 }

@@ -352,11 +352,14 @@
 	}
 	.scribble-item-info { width: 85%; display: flex; flex-direction: column; }
 	.scribble-item-poster { width: 15%; text-align: center; }
+	.scribble-item-poster img { border-radius: 5px; }
 	.info-item { display: flex; justify-content: space-between; align-items: center; }
 	.info-item-rank, .info-item-tags { font-size: 12px; }
 	.info-item-tags { font-weight: bold; color: #343E97; }
 	.info-item-content { margin: 15px 0px; flex-grow: 1; }
 	.info-item-foot { display: flex; justify-content: space-between; }
+	.info-item-btns a { color: #2d2c31; }
+	.info-item-btns a:hover { color: #96989a; }
 	.favorite-icons { cursor: pointer; color: #2d2c31; }
 	.favorite-icons:hover { text-decoration: none; color: #96989a; }
 	#writer-img { background-color: #2d2c31; border-radius: 30px; width: 30px; height: 30px; border: none;  }

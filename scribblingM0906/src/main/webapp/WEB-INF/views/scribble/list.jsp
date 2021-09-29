@@ -11,28 +11,32 @@
 		<div class="scribble-list-box">
 			<div class="scribble-list-header">
 				<div class="list-sort">
-					<select class="sort-order" name="sort_order">
-						<option>최신순</option>
-						<option>오래된순</option>
-						<option>별점높은순</option>
-						<option>별점낮은순</option>
-					</select>
-					<span class="divider"> | </span>
-					<select class="page-limit" name="page_limit">
-						<option>5</option>
-						<option>10</option>
-						<option>15</option>
-						<option>20</option>
-					</select>
+					<form id="list-sort" action="<c:url value="/scribble/list" />" method="post">
+						<select class="sort-order" name="sort_order">
+							<option>최신순</option>
+							<option>오래된순</option>
+							<option>별점높은순</option>
+							<option>별점낮은순</option>
+						</select>
+						<span class="divider"> | </span>
+						<select class="page-limit" name="page_limit">
+							<option>5</option>
+							<option>10</option>
+							<option>15</option>
+							<option>20</option>
+						</select>
+					</form>
 				</div>
 				<div class="list-search">
-					<select class="search-option" name="search_option">
-						<option>영화명</option>
-						<option>영화관명</option>
-						<option>대표태그</option>
-					</select>
-					<input type="text" class="search-input" name="search_input" />
-					<input type="button" class="material-icons search-btn" value="search" />
+					<form id="list-search" action="<c:url value="/scribble/list" />" method="post">
+						<select class="search-option" name="search_option">
+							<option>영화명</option>
+							<option>영화관명</option>
+							<option>대표태그</option>
+						</select>
+						<input type="text" class="search-input" name="search_input" />
+						<input type="button" class="material-icons search-btn" value="search" />
+					</form>
 				</div>
 			</div>
 			<div class="scribble-list-content">
@@ -53,11 +57,17 @@
 							</span>
 						</div>
 						<div class="info-item-content">
-							<p>${fn:substring(sldto.scontent, 0, 50)}...</p>
+							<p><c:choose>
+								<c:when test="${sldto.scontent.length()>50}">${fn:substring(sldto.scontent, 0, 50)}...</c:when>
+								<c:otherwise>${sldto.scontent}</c:otherwise>
+							</c:choose></p>
 						</div>
 						<div class="info-item-foot">
-							<span class="info-item-publishdate">${sldto.spublishdate}</span>
-							<span></span>
+							<span class="info-item-publishdate">${fn:substring(sldto.spublishdate, 0, 19)}</span>
+							<span class="info-item-btns">
+								<a href="<c:url value="/scribble/edit?sno=${sldto.sno}" />"><span class="material-icons">edit</span></a>
+								<a href="<c:url value="/scribble/delete?sno=${sldto.sno}" />"><span class="material-icons">delete</span></a>
+							</span>
 						</div>
 					</div>
 					<div class="scribble-item-poster">
@@ -76,6 +86,11 @@
 </div>
 <!-- profile -->
 <%@ include file="../inc/profile.jsp" %>
+<script>
+$('#search-btn').on('click', function() {
+	
+});
+</script>
 
 <%-- <td colspan="3" class="text-center">
 	<ul class="pagination">

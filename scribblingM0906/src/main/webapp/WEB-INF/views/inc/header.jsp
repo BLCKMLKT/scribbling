@@ -455,7 +455,7 @@ h3.panel-title {
 	display: flex;
 }
 .scribble-item-info { width: 85%; }
-.scribble-item-poster { width: 15%; }
+.scribble-item-poster { width: 15%; text-align: center; }
 .info-item { display: flex; justify-content: space-between; align-items: center; }
 .info-item-rank, .info-item-tags { font-size: 12px; }
 .info-item-tags { font-weight: bold; color: #343E97; }

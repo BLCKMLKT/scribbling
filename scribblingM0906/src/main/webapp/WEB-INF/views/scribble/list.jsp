@@ -36,8 +36,8 @@
 				</div>
 			</div>
 			<div class="scribble-list-content">
+			<c:forEach var="sldto" items="${list}" varStatus="status">
 				<div class="scribble-content-item">
-				<c:forEach var="sldto" items="${list}" varStatus="status">
 					<div class="scribble-item-info">
 						<div class="info-item">
 							<a class="info-item-title" href="<c:url value="/scribble/detail?sno=${sldto.sno}" />">${sldto.fname}</a>
@@ -53,18 +53,18 @@
 							</span>
 						</div>
 						<div class="info-item-content">
-							<p>${fn:substring(sldto.scontent, 0, 15)}...</p>
+							<p>${fn:substring(sldto.scontent, 0, 50)}...</p>
 						</div>
 						<div class="info-item-foot">
-							<span class="info-item-publishdate"></span>
+							<span class="info-item-publishdate">${sldto.spublishdate}</span>
 							<span></span>
 						</div>
 					</div>
 					<div class="scribble-item-poster">
 						<img src="${sldto.fimg}" alt="${sldto.fname}" />
 					</div>
-				</c:forEach>
 				</div>
+				</c:forEach>
 			</div>
 			<div class="paging">
 				<div class="prev"></div>

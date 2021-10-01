@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.company.dto.ScribbleDto;
+import com.company.dto.ScribbleVO;
 import com.company.dto.ScribbleListDto;
 import com.company.mapper.ScribbleMapper;
 import com.company.mapper.TagMapper;

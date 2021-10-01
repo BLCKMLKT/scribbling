@@ -3,6 +3,24 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.company.mapper.ScribbleMapper">
+	<resultMap type="TagVO" id="tagVO">
+		<result column="tname" property="tname"/>
+	</resultMap>
+	<resultMap type="ScribbleVO" id="ScribbleListMap">
+		<result column="sno" property="sno" />
+		<result column="sdate" property="sdate" />
+		<result column="srate" property="srate" />
+		<result column="spublishdate" property="spublishdate"/>
+		<association property="fvo" javaType="FilmVO">
+			<result column="fname" property="fname"/>
+			<result column="fimg" property="fimg"/>
+		</association>
+		<association property="kvo" javaType="KinoVO">
+			<result column="kname" property="kname"/>
+		</association>
+		<collection property="tags" resultMap="tagVO"/>
+	</resultMap>
+	
 	<insert id="insertScribble">
 		INSERT INTO scribbles
 		(sdate, uno, fcode, kcode, srate, scontent, sip)
@@ -12,7 +30,18 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
-	<select id="listScribble" parameterType="integer" resultType="ScribbleListDto">
+	<select id="listScribble" parameterType="integer" resultMap="ScribbleListMap">
+		SELECT s.sno, s.sdate, s.srate, f.fname, f.fimg, k.kname, s.spublishdate, tl.tname
+		FROM scribbles as s
+		JOIN films as f ON s.fcode=f.fcode
+		JOIN kinos as k ON s.kcode=k.kcode
+		JOIN tags as t ON s.sno=t.sno
+		LEFT JOIN tag_library as tl ON t.tid=tl.tid
+		WHERE s.uno=#{param1}
+		ORDER BY sno DESC
+		LIMIT #{param2}, #{param3}
+	</select>
+	<!-- <select id="listScribble" parameterType="integer" resultType="ScribbleListDto">
 		SELECT s.sno, s.sdate, s.srate, f.fname, f.fimg, k.kname, s.spublishdate, s.scontent
 		FROM scribbles as s
 		JOIN films as f ON s.fcode=f.fcode
@@ -20,5 +49,11 @@
 		WHERE uno=#{param1}
 		ORDER BY sno DESC
 		LIMIT #{param2}, #{param3}
+	</select> -->
+	<select id="detailScribble" parameterType="integer" resultType="ScribbleDto">
+		SELECT *
+		FROM scribbles
+		WHERE uno=#{param1}
+		AND sno=#{param2}
 	</select>
 </mapper>

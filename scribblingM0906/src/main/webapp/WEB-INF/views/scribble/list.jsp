@@ -87,8 +87,8 @@
 <!-- profile -->
 <%@ include file="../inc/profile.jsp" %>
 <script>
-$('#search-btn').on('click', function() {
-	
+$('.search-btn').on('click', function() {
+	$('#list-search').submit();
 });
 </script>
 

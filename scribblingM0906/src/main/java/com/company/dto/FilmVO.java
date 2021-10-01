@@ -3,7 +3,7 @@ package com.company.dto;
 import lombok.Data;
 
 @Data
-public class FilmDto {
+public class FilmVO {
 	private Integer fcode;
 	private String fname;
 	private int frelease;

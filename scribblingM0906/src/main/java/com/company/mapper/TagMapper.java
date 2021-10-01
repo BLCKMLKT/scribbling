@@ -2,13 +2,13 @@ package com.company.mapper;
 
 import java.util.List;
 
-import com.company.dto.TagDto;
+import com.company.dto.TagVO;
 
 public interface TagMapper {
 	public List<String> findTag(String tname);
-	public Integer searchTaglib(TagDto tdto);
-	public Integer insertTaglib(TagDto tdto);
+	public Integer searchTaglib(TagVO tdto);
+	public Integer insertTaglib(TagVO tdto);
 	
-	public int insertTag(TagDto tdto);
+	public int insertTag(TagVO tdto);
 	public List<String> listTags(Integer sno);
 }

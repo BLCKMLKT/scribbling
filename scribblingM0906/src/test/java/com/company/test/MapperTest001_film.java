@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.company.dto.FilmDto;
+import com.company.dto.FilmVO;
 import com.company.mapper.FilmMapper;
 
 import lombok.extern.log4j.Log4j;

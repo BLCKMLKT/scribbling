@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.company.dto.TagDto;
+import com.company.dto.TagVO;
 import com.company.mapper.TagMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -27,7 +27,7 @@ public class MapperTest002_tag {
 //		System.out.println(tid + " / " + tid1);
 //	}
 	public void insertTag() {
-		TagDto dto = new TagDto();
+		TagVO dto = new TagVO();
 		dto.setTid(1); dto.setSno(1); dto.setFcode(1);
 		tmapper.insertTag(dto);
 	}

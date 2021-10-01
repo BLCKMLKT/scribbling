@@ -47,7 +47,9 @@ public class ScribbleController {
 		return "/scribble/edit";
 	}
 	@RequestMapping(value="/detail", method=RequestMethod.GET)
-	public String detail() {
+	public String detail(HttpServletRequest request) throws Exception {
+		request.setCharacterEncoding("UTF-8");
+		request.setAttribute("sdto", sservice.scribbleDetail(request));
 		return "/scribble/detail";
 	}
 	@RequestMapping(value="/list", method=RequestMethod.GET)
@@ -56,6 +58,12 @@ public class ScribbleController {
 		response.setContentType("text/html; charset=UTF-8");
 		List<ScribbleListDto> list = sservice.scribbleList(request);
 		request.setAttribute("list", list);
+		return "/scribble/list";
+	}
+	@RequestMapping(value="/list", method=RequestMethod.POST)
+	public String list_search(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 		return "/scribble/list";
 	}
 	@RequestMapping(value="/delete", method=RequestMethod.GET)

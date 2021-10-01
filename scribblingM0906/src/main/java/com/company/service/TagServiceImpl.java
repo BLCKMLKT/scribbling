@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.company.dto.FilmDto;
-import com.company.dto.ScribbleDto;
-import com.company.dto.TagDto;
+import com.company.dto.FilmVO;
+import com.company.dto.ScribbleVO;
+import com.company.dto.TagVO;
 import com.company.mapper.TagMapper;
 import com.google.gson.Gson;
 

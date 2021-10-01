@@ -7,7 +7,7 @@
 		<div class="scribble-box">
 			<div class="scribble-head">
 				<div class="scribble-poster">
-					<img src="${pageContext.request.contextPath}/" alt=""/>
+					<img src="${sdto.}" alt=""/>
 				</div>
 				<div class="scribble-subject">
 					<p class="scribble-date">0000/00/00</p>

@@ -14,7 +14,6 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import com.company.dto.FilmVO;
 import com.company.dto.KinoVO;
 import com.company.dto.ScribbleVO;
-import com.company.dto.ScribbleListvo;
 import com.company.dto.TagVO;
 import com.company.mapper.FilmMapper;
 import com.company.mapper.KinoMapper;

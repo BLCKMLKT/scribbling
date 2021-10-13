@@ -11,14 +11,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.company.dto.ScribbleVO;
-import com.company.dto.ScribbleListDto;
+import com.company.dto.ScribbleListVO;
 import com.company.mapper.ScribbleMapper;
 import com.company.mapper.TagMapper;
 
 import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@Log4j
 @ContextConfiguration(locations= {"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
 public class MapperTest004_scribbles {
 	@Autowired
@@ -41,13 +40,10 @@ public class MapperTest004_scribbles {
 //	}
 	
 	public void listScribble() throws Exception {
-		List<ScribbleListDto> sList = mapper.listScribble(1, 0, 10);
+		List<ScribbleVO> sList = mapper.listScribble(1, 0, 10);
 		for(int i=0; i<sList.size(); i++) {
-			ScribbleListDto temp = sList.get(i);
+			ScribbleVO temp = sList.get(i);
 			List<String> tList = tMapper.listTags(temp.getSno());
-			temp.setTags(tList);
-			log.info(".........tags : " + temp.getTags().toString());
-			log.info(".........tags result : " + sList.get(i).getTags().toString());
 		}
 	}
 }

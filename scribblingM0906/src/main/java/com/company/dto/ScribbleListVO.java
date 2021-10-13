@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class ScribbleListDto {
+public class ScribbleListVO {
 	private Integer sno;
 	private String sdate;
 	private Integer srate;

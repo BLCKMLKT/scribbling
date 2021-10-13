@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.company.dto.ScribbleListDto;
+import com.company.dto.ScribbleVO;
 import com.company.service.ScribbleService;
 
 @Controller
@@ -56,7 +56,7 @@ public class ScribbleController {
 	public String list(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		List<ScribbleListDto> list = sservice.scribbleList(request);
+		List<ScribbleVO> list = sservice.scribbleList(request);
 		request.setAttribute("list", list);
 		return "/scribble/list";
 	}

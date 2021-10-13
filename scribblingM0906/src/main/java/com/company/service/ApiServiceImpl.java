@@ -4,11 +4,25 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.*;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.stereotype.Service;
+
+import com.company.dto.FilmVO;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 @Service
 public class ApiServiceImpl implements ApiService {
@@ -39,5 +53,46 @@ public class ApiServiceImpl implements ApiService {
 			br.close();
 			conn.disconnect();
 		}
+	}
+	@Override
+	public JsonArray boxoffice(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		Calendar today = Calendar.getInstance(); today.add(Calendar.DATE, -1); // 어제 날짜로 변경
+		String targetDt = new SimpleDateFormat("yyyyddmm").format(today.getTime());
+		String param = "?key=" + URLEncoder.encode("dabd87756e9bed1f64e135108b92f184" , "UTF-8");
+		param = param + "&targetDt=" + URLEncoder.encode(targetDt, "UTF-8");
+		URL url = new URL("http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json"+ param);
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		JsonArray list = null;
+		if(conn.getResponseCode() == 200){
+			StringBuilder sbuilder = new StringBuilder();
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			String line ="";
+			while( (line = br.readLine()) != null){ sbuilder.append(line); }
+			JsonObject json = new Gson().fromJson(sbuilder.toString(), JsonObject.class);
+			list = json.getAsJsonObject("boxOfficeResult").get("dailyBoxOfficeList").getAsJsonArray();
+			br.close();
+			conn.disconnect();
+		}
+		return list;
+	}
+	@Override
+	public ArrayList<FilmVO> boxOfficeList(HttpServletRequest request, JsonArray list) throws Exception {
+		ArrayList<FilmVO> boxOfficeList = new ArrayList<>();
+		
+		WebDriverManager.chromedriver().setup(); 
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--start-maximized"); // 최대크기로
+		options.addArguments("--headless"); // Browser를 띄우지 않음
+		options.addArguments("--disable-gpu"); // GPU를 사용하지 않음, Linux에서 headless를 사용하는 경우 필요함.
+		options.addArguments("--no-sandbox"); // Sandbox 프로세스를 사용하지 않음, Linux에서 headless를 사용하는 경우 필요함.
+ 
+    	ChromeDriver driver = new ChromeDriver(options);
+        driver.get("https://kobis.or.kr/kobis/business/mast/mvie/searchMovieList.do?dtTp=movie&dtCd=20112443"); // URL로 접속하기
+        WebElement poster = driver.findElement(By.cssSelector("a.fl.thumb > img"));
+        String posterUrl = poster.getAttribute("src");
+        System.out.println(posterUrl);
+		return null;
 	}
 }

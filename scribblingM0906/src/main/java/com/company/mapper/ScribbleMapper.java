@@ -3,7 +3,6 @@ package com.company.mapper;
 import java.util.List;
 
 import com.company.dto.ScribbleVO;
-import com.company.dto.ScribbleListDto;
 
 public interface ScribbleMapper {
 	public Integer insertScribble(ScribbleVO sdto);

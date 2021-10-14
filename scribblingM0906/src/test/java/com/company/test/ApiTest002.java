@@ -56,7 +56,7 @@ public class ApiTest002 {
 	@Test
 	public void test2() throws Exception {
 		Calendar today = Calendar.getInstance(); today.add(Calendar.DATE, -1); // 어제 날짜로 변경
-		String targetDt = new SimpleDateFormat("yyyyddmm").format(today.getTime());
+		String targetDt = new SimpleDateFormat("YYYYMMdd").format(today.getTime());
 		String param = "?key=" + URLEncoder.encode("dabd87756e9bed1f64e135108b92f184" , "UTF-8");
 		param = param + "&targetDt=" + URLEncoder.encode(targetDt, "UTF-8");
 		URL url = new URL("http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json"+ param);

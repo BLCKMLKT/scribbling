@@ -4,10 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias alias="FilmVO" type="com.company.dto.FilmDto"/>
-		<typeAlias alias="ScribbleVO" type="com.company.dto.ScribbleDto"/>
-		<typeAlias alias="TagVO" type="com.company.dto.TagDto"/>
+		<typeAlias alias="FilmVO" type="com.company.dto.FilmVO"/>
+		<typeAlias alias="ScribbleVO" type="com.company.dto.ScribbleVO"/>
+		<typeAlias alias="TagVO" type="com.company.dto.TagVO"/>
 		<typeAlias alias="KinoVO" type="com.company.dto.KinoVO" />
-		<!-- <typeAlias alias="ScribbleListDto" type="com.company.dto.ScribbleListDto"/> -->
+		<typeAlias alias="BoxOfficeVO" type="com.company.dto.BoxOfficeVO"/>
 	</typeAliases>
 </configuration>

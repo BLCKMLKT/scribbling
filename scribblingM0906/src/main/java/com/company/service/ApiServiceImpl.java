@@ -4,9 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +15,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.stereotype.Service;
 
-import com.company.dto.FilmVO;
+import com.company.dto.BoxOfficeVO;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -55,11 +53,7 @@ public class ApiServiceImpl implements ApiService {
 		}
 	}
 	@Override
-	public JsonArray boxoffice(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
-		Calendar today = Calendar.getInstance(); today.add(Calendar.DATE, -1); // 어제 날짜로 변경
-		String targetDt = new SimpleDateFormat("yyyyddmm").format(today.getTime());
+	public JsonArray boxoffice(String targetDt) throws Exception {
 		String param = "?key=" + URLEncoder.encode("dabd87756e9bed1f64e135108b92f184" , "UTF-8");
 		param = param + "&targetDt=" + URLEncoder.encode(targetDt, "UTF-8");
 		URL url = new URL("http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json"+ param);
@@ -78,8 +72,8 @@ public class ApiServiceImpl implements ApiService {
 		return list;
 	}
 	@Override
-	public ArrayList<FilmVO> boxOfficeList(HttpServletRequest request, JsonArray list) throws Exception {
-		ArrayList<FilmVO> boxOfficeList = new ArrayList<>();
+	public ArrayList<BoxOfficeVO> boxOfficeList(JsonArray list, String targetDt) throws Exception {
+		ArrayList<BoxOfficeVO> boxOfficeList = new ArrayList<>();
 		
 		WebDriverManager.chromedriver().setup(); 
 		ChromeOptions options = new ChromeOptions();
@@ -89,10 +83,18 @@ public class ApiServiceImpl implements ApiService {
 		options.addArguments("--no-sandbox"); // Sandbox 프로세스를 사용하지 않음, Linux에서 headless를 사용하는 경우 필요함.
  
     	ChromeDriver driver = new ChromeDriver(options);
-        driver.get("https://kobis.or.kr/kobis/business/mast/mvie/searchMovieList.do?dtTp=movie&dtCd=20112443"); // URL로 접속하기
-        WebElement poster = driver.findElement(By.cssSelector("a.fl.thumb > img"));
-        String posterUrl = poster.getAttribute("src");
-        System.out.println(posterUrl);
-		return null;
+    	for(int i=0; i<list.size(); i++) {
+    		BoxOfficeVO temp = new BoxOfficeVO();
+    		JsonObject tempj = list.get(i).getAsJsonObject();
+    		temp.setBrank(i); temp.setBdate(targetDt); // 영화 순위 / 박스오피스 날짜
+    		temp.setFname(tempj.get("movieNm").getAsString()); // 영화 제목 가져오기
+    		String movieCd = tempj.get("movieCd").getAsString(); // 영진위 영화 코드 가져오기
+    		driver.get("https://kobis.or.kr/kobis/business/mast/mvie/searchMovieList.do?dtTp=movie&dtCd=" + movieCd); // 영화 코드로 영진위 영화 정보 검색
+    		WebElement poster = driver.findElement(By.cssSelector("a.fl.thumb > img"));
+    		String posterUrl = poster.getAttribute("src"); // 포스터 이미지 추출
+    		temp.setFimg(posterUrl);
+    		driver.close();
+    	}
+		return boxOfficeList;
 	}
 }

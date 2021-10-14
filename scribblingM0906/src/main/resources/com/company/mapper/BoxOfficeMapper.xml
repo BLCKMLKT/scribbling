@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.mapper.BoxOfficeMapper">
+	<select id="list" parameterType="string" resultType="BoxOfficeVO">
+		SELECT fname, fimg
+		FROM boxoffice
+		WHERE bdate=#{value}
+		ORDER BY brank ASC
+	</select>
+	<insert id="insert">
+		INSERT INTO boxoffice
+		(fname, fimg, brank, bdate)
+		VALUES
+		(#{fname}, #{fimg}, #{brank}, #{bdate})
+	</insert>
+</mapper>

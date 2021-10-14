@@ -6,46 +6,18 @@
 	<div class="main-panel">
 		<h3 class="panel-title">박스오피스 순위</h3>
 		<div class="boxoffice-box">
+		<c:forEach var="bovo" items="${boxoffice}" varStatus="status">
 			<div class="boxoffice-item">
-				<span class="boxoffice-rank">1</span>
-				<p class="poster"><img src="https://pbs.twimg.com/media/E7C_SL-X0AA28LZ?format=jpg&name=4096x4096" class="img-rounded" alt="" /></p>
-				<p class="title">Slowacid Mark</p>
-				<p class="sub-desc"><span class="release-date">2021</span><span class="country">Canada</span></p>
-				<p class="sub-desc"><span class="star">평균★ 5.0</span><span class="audience">누적 관객 600M</span></p>
+				<span class="boxoffice-rank">${status.index+1}</span>
+				<p class="poster"><img src="${bovo.fimg}" class="img-rounded" alt="" /></p>
+				<p class="title">${bovo.fname}</p>
 			</div>
-			<div class="boxoffice-item">
-				<span class="boxoffice-rank">2</span>
-				<p class="poster"><img src="https://pbs.twimg.com/media/E7C-pEUWYAYBbDV?format=jpg&name=4096x4096" class="img-rounded" alt="" /></p>
-				<p class="title">Slowacid Haechan</p>
-				<p class="sub-desc"><span class="release-date">2021</span><span class="country">Korea</span></p>
-				<p class="sub-desc"><span class="star">평균★ 5.0</span><span class="audience">누적 관객 606M</span></p>
-			</div>
-			<div class="boxoffice-item">
-				<span class="boxoffice-rank">3</span>
-				<p class="poster"><img src="https://pbs.twimg.com/media/E7C_DVBX0AQGADi?format=jpg&name=4096x4096" class="img-rounded" alt="" /></p>
-				<p class="title">Slowacid Jungwoo</p>
-				<p class="sub-desc"><span class="release-date">2021</span><span class="country">Korea</span></p>
-				<p class="sub-desc"><span class="star">평균★ 5.0</span><span class="audience">누적 관객 990M</span></p>
-			</div>
-			<div class="boxoffice-item">
-				<span class="boxoffice-rank">4</span>
-				<p class="poster"><img src="https://pbs.twimg.com/media/E695OkeUcAI2Rt6?format=jpg&name=4096x4096" class="img-rounded" alt="" /></p>
-				<p class="title">HelloFuture Jeno</p>
-				<p class="sub-desc"><span class="release-date">2021</span><span class="country">DREAM</span></p>
-				<p class="sub-desc"><span class="star">평균★ 5.0</span><span class="audience">누적 관객 423M</span></p>
-			</div>
-			<div class="boxoffice-item">
-				<span class="boxoffice-rank">5</span>
-				<p class="poster"><img src="https://pbs.twimg.com/media/E8BynHjVcAIsyf9?format=jpg&name=4096x4096" class="img-rounded" alt="" /></p>
-				<p class="title">Paint Me Naked</p>
-				<p class="sub-desc"><span class="release-date">2021</span><span class="country">TEN</span></p>
-				<p class="sub-desc"><span class="star">평균★ 5.0</span><span class="audience">누적 관객 227M</span></p>
-			</div>
+		</c:forEach>
 		</div>
 	</div>
 	<hr class="solid">
 	<div class="main-panel">
-		<h3 class="">실시간 인기 스크리블</h3>
+		<h3 class="">스크리블 인기 영화</h3>
 		<div class="best-box">
 			<div class="best-item">
 				<p class="poster"><img src="https://pbs.twimg.com/media/E7C_SL-X0AA28LZ?format=jpg&name=4096x4096" class="img-rounded" alt="" /></p>

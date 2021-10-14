@@ -8,12 +8,12 @@
 	   FROM tag_library
 	   WHERE tname LIKE CONCAT(#{value}, '%') 
 	</select>
-	<select id="searchTaglib" parameterType="TagDto" resultType="integer">
+	<select id="searchTaglib" parameterType="TagVO" resultType="integer">
 		SELECT tid
 		FROM tag_library
 		WHERE tname=#{tname}
 	</select>
-	<insert id="insertTaglib" parameterType="TagDto">
+	<insert id="insertTaglib" parameterType="TagVO">
 		INSERT INTO tag_library
 		(tname)
 		VALUES

@@ -11,7 +11,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.company.dto.ScribbleVO;
-import com.company.dto.ScribbleListVO;
 import com.company.mapper.ScribbleMapper;
 import com.company.mapper.TagMapper;
 

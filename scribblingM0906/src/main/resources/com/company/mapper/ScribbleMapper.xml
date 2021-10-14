@@ -50,7 +50,7 @@
 		ORDER BY sno DESC
 		LIMIT #{param2}, #{param3}
 	</select> -->
-	<select id="detailScribble" parameterType="integer" resultType="ScribbleDto">
+	<select id="detailScribble" parameterType="integer" resultType="ScribbleVO">
 		SELECT *
 		FROM scribbles
 		WHERE uno=#{param1}

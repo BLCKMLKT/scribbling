@@ -13,9 +13,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.company.dto.BoxOfficeVO;
+import com.company.mapper.BoxOfficeMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -24,6 +26,8 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 @Service
 public class ApiServiceImpl implements ApiService {
+	@Autowired
+	private BoxOfficeMapper bomapper;
 	@Override
 	public void findFilm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("UTF-8");
@@ -93,8 +97,9 @@ public class ApiServiceImpl implements ApiService {
     		WebElement poster = driver.findElement(By.cssSelector("a.fl.thumb > img"));
     		String posterUrl = poster.getAttribute("src"); // 포스터 이미지 추출
     		temp.setFimg(posterUrl);
-    		driver.close();
+    		bomapper.insert(temp); // DB에 입력
     	}
+    	driver.quit();
 		return boxOfficeList;
 	}
 }

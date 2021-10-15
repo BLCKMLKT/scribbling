@@ -311,10 +311,9 @@ input:focus { outline: none; }
 @media screen and (max-width: 768px) {
 	.best-item { width: 50%; }
 }
-.boxoffice-item img, .best-item img { width: 100%; }
+.boxoffice-item img, .best-item img { width: 100%; margin: -10px 0px; }
 
-
-.poster { z-index: 1; }
+.poster { z-index: 1; border-radius: 5px; overflow: hidden; }
 .sub-desc { font-size: 12px; }
 .more-btn-box { display: flex; flex-direction: row; justify-content: center; }
 
@@ -330,15 +329,27 @@ input:focus { outline: none; }
 	margin: 0 auto;
 }
 h3.panel-title { 
-	padding: 10px 30px; 
+	padding: 10px 30px;
 	letter-spacing: 2px;
 	font-weight: bold;
-	color: #343E97; 
+	color: #343E97;
 }
-
-.btn-prev, .btn-next { top: 50%; z-index: 2; position: absolute; background-color: transparent; border: none; font-size: 30px; margin: 0px; text-align: center; }
-.btn-prev { left: 10px; } 
-.btn-next { right: 10px; }
+.btn-prev, .btn-next { 
+	top: 50%;
+	z-index: 2;
+	position: absolute;
+	background-color: transparent;
+	border: none;
+	font-size: 30px;
+	margin: 0px;
+	text-align: center;
+	display: block;
+    height: 48px;
+    width: 48px;
+}
+.btn-prev.hidden, .btn-next.hidden { display: hidden; }
+.btn-prev { background: url('resources/images/chevron_left_black.png') no-repeat; }
+.btn-next { background: url('resources/images/chevron_right_black.png') no-repeat; }
 
 /* 12th August 2021 */
 .nav-tabs > li > a { margin: 0px; }

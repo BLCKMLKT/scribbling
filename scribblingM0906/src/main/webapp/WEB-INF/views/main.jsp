@@ -6,14 +6,16 @@
 	<div class="main-panel">
 		<h3 class="panel-title">박스오피스 순위</h3>
 		<div class="boxoffice-box">
-		<c:forEach var="bovo" items="${boxoffice}" varStatus="status">
-			<div class="boxoffice-item">
-				<span class="boxoffice-rank">${status.index+1}</span>
-				<p class="poster"><img src="${bovo.fimg}" class="img-rounded" alt="" /></p>
-				<p class="title">${bovo.fname}</p>
-			</div>
-		</c:forEach>
+			<c:forEach var="bovo" items="${boxoffice}" varStatus="status">
+				<div class="boxoffice-item">
+					<span class="boxoffice-rank">${status.index+1}</span>
+					<p class="poster"><img src="${bovo.fimg}" class="img-rounded" alt="" /></p>
+					<p class="title">${bovo.fname}</p>
+				</div>
+			</c:forEach>
 		</div>
+		<button type='button' class='btn-prev hidden'></button>
+		<button type='button' class='btn-next'></button>
 	</div>
 	<hr class="solid">
 	<div class="main-panel">
@@ -71,28 +73,32 @@ $(function(){
         //autoplaySpeed : 10000,         // 자동 스크롤 시 다음으로 넘어가는데 걸리는 시간 (ms)
         //pauseOnHover : true,        // 슬라이드 이동    시 마우스 호버하면 슬라이더 멈추게 설정
         vertical : false,        // 세로 방향 슬라이드 옵션
-        prevArrow : "<button type='button' class='material-icons btn-prev'>arrow_circle_left</button>",        // 이전 화살표 모양 설정
-        nextArrow : "<button type='button' class='material-icons btn-next'>arrow_circle_right</button>",        // 다음 화살표 모양 설정
+        prevArrow : $('.btn-prev'),        // 이전 화살표 모양 설정
+        nextArrow : $('.btn-next'),        // 다음 화살표 모양 설정
         dotsClass : "slick-dots",     //아래 나오는 페이지네이션(점) css class 지정
         draggable : true,     //드래그 가능 여부 
         
         responsive: [ // 반응형 웹 구현 옵션
             {  
                 breakpoint: 960, //화면 사이즈 960px
-                settings: {
-                    //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
+                settings: { //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
                     slidesToShow:3 
                 } 
             },
             { 
                 breakpoint: 768, //화면 사이즈 768px
-                settings: {    
-                    //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
+                settings: { //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
                     slidesToShow:2 
                 } 
             }
         ]
-
+    });
+    
+    $('.boxoffice-box').on('afterChange', function (event, slick, currentSlide) {
+        if(currentSlide === 5) { $('.btn-next').addClass('hidden'); }
+        else { $('.btn-next').removeClass('hidden'); }
+        if(currentSlide === 0) { $('.btn-prev').addClass('hidden'); }
+        else { $('.btn-prev').removeClass('hidden'); }
     });
   })
 </script>

@@ -30,26 +30,38 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
-	<select id="listScribble" parameterType="integer" resultMap="ScribbleListMap">
+	
+	<select id="listScribble" parameterType="SearchVO" resultMap="ScribbleListMap">
 		SELECT s.sno, s.sdate, s.srate, f.fname, f.fimg, k.kname, s.spublishdate, tl.tname
 		FROM scribbles as s
 		JOIN films as f ON s.fcode=f.fcode
 		JOIN kinos as k ON s.kcode=k.kcode
 		JOIN tags as t ON s.sno=t.sno
 		LEFT JOIN tag_library as tl ON t.tid=tl.tid
-		WHERE s.uno=#{param1}
-		ORDER BY sno DESC
-		LIMIT #{param2}, #{param3}
+		WHERE s.uno=#{uno}
+		<if test='option != null and keyword != null'>
+			<choose>
+			<when test='option eq "fname"'>
+				AND f.fname LIKE CONCAT('%', #{keyword}, '%')
+			</when>
+			<when test='option eq "kname"'>
+				AND k.kname LIKE CONCAT('%', #{keyword}, '%')
+			</when>
+			<when test='option eq "tname"'>
+				AND tl.tname LIKE CONCAT('%', #{keyword}, '%')
+			</when>
+		</choose>
+		</if>
+		<choose>
+			<when test='order eq "lat"'> ORDER BY sno DESC </when>
+			<when test='order eq "old"'> ORDER BY sno ASC </when>
+			<when test='order eq "hig"'> ORDER BY srate DESC </when>
+			<when test='order eq "low"'> ORDER BY srate ASC </when>
+			<otherwise> ORDER BY sno DESC </otherwise>
+		</choose>
+		LIMIT #{startNum}, #{pageLmt}
 	</select>
-	<!-- <select id="listScribble" parameterType="integer" resultType="ScribbleListDto">
-		SELECT s.sno, s.sdate, s.srate, f.fname, f.fimg, k.kname, s.spublishdate, s.scontent
-		FROM scribbles as s
-		JOIN films as f ON s.fcode=f.fcode
-		JOIN kinos as k ON s.kcode=k.kcode
-		WHERE uno=#{param1}
-		ORDER BY sno DESC
-		LIMIT #{param2}, #{param3}
-	</select> -->
+	
 	<select id="detailScribble" parameterType="integer" resultType="ScribbleVO">
 		SELECT *
 		FROM scribbles

@@ -98,6 +98,7 @@ public class ApiServiceImpl implements ApiService {
     		String posterUrl = poster.getAttribute("src"); // 포스터 이미지 추출
     		temp.setFimg(posterUrl);
     		bomapper.insert(temp); // DB에 입력
+    		boxOfficeList.add(temp); // 출력할 리스트에 등록
     	}
     	driver.quit();
 		return boxOfficeList;

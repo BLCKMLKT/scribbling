@@ -10,68 +10,66 @@
 		</div>
 		<div class="scribble-list-box">
 			<div class="scribble-list-header">
-				<div class="list-sort">
-					<form id="list-sort" action="<c:url value="/scribble/list" />" method="post">
+				<form id="list-search" action="<c:url value="/scribble/list" />" method="post">
+					<div class="list-sort">
 						<select class="sort-order" name="sort_order">
-							<option>최신순</option>
-							<option>오래된순</option>
-							<option>별점높은순</option>
-							<option>별점낮은순</option>
+							<option value="lat">최신순</option>
+							<option value="old">오래된순</option>
+							<option value="hig">별점높은순</option>
+							<option value="low">별점낮은순</option>
 						</select>
 						<span class="divider"> | </span>
 						<select class="page-limit" name="page_limit">
-							<option>5</option>
-							<option>10</option>
-							<option>15</option>
-							<option>20</option>
+							<option value="5">5</option>
+							<option value="10">10</option>
+							<option value="15">15</option>
+							<option value="20">20</option>
 						</select>
-					</form>
-				</div>
-				<div class="list-search">
-					<form id="list-search" action="<c:url value="/scribble/list" />" method="post">
+					</div>
+					<div class="list-search">
 						<select class="search-option" name="search_option">
-							<option>영화명</option>
-							<option>영화관명</option>
-							<option>대표태그</option>
+							<option value="fname">영화명</option>
+							<option value="kname">영화관명</option>
+							<option value="tname">대표태그</option>
 						</select>
-						<input type="text" class="search-input" name="search_input" />
+						<input type="text" class="search-input" name="search_input" value="${shvo.keyword}"/>
 						<input type="button" class="material-icons search-btn" value="search" />
-					</form>
-				</div>
+					</div>
+				</form>
 			</div>
 			<div class="scribble-list-content">
-			<c:forEach var="sldto" items="${list}" varStatus="status">
+			<c:forEach var="slvo" items="${list}" varStatus="status">
 				<div class="scribble-content-item">
 					<div class="scribble-item-info">
 						<div class="info-item">
-							<a class="info-item-title" href="<c:url value="/scribble/detail?sno=${sldto.sno}" />">${sldto.fname}</a>
-							<span class="into-item-dateplace">${sldto.sdate} · ${sldto.kname}</span>
+							<a class="info-item-title" href="<c:url value="/scribble/detail?sno=${slvo.sno}" />">${slvo.fvo.fname}</a>
+							<span class="into-item-dateplace">${slvo.sdate} · ${slvo.kvo.kname}</span>
 						</div>
 						<div class="info-item">
 							<span class="info-item-rank">
-							<c:forEach var="i" begin="1" end="${sldto.srate}" step="1">★ </c:forEach>
-							<c:forEach var="i" begin="1" end="${5-sldto.srate}" step="1">☆ </c:forEach>
+							<c:forEach var="i" begin="1" end="${slvo.srate}" step="1">★ </c:forEach>
+							<c:forEach var="i" begin="1" end="${5-slvo.srate}" step="1">☆ </c:forEach>
 							</span>
 							<span class="info-item-tags">
-							<c:forEach var="tag" items="${sldto.tags}">#${tag} </c:forEach>
+							<c:forEach var="tag" items="${slvo.tags}"># ${tag.tname} </c:forEach>
 							</span>
 						</div>
 						<div class="info-item-content">
 							<p><c:choose>
-								<c:when test="${sldto.scontent.length()>50}">${fn:substring(sldto.scontent, 0, 50)}...</c:when>
-								<c:otherwise>${sldto.scontent}</c:otherwise>
+								<c:when test="${slvo.scontent.length()>50}">${fn:substring(slvo.scontent, 0, 50)}...</c:when>
+								<c:otherwise>${slvo.scontent}</c:otherwise>
 							</c:choose></p>
 						</div>
 						<div class="info-item-foot">
-							<span class="info-item-publishdate">${fn:substring(sldto.spublishdate, 0, 19)}</span>
+							<span class="info-item-publishdate">${fn:substring(slvo.spublishdate, 0, 19)}</span>
 							<span class="info-item-btns">
-								<a href="<c:url value="/scribble/edit?sno=${sldto.sno}" />"><span class="material-icons">edit</span></a>
-								<a href="<c:url value="/scribble/delete?sno=${sldto.sno}" />"><span class="material-icons">delete</span></a>
+								<a href="<c:url value="/scribble/edit?sno=${slvo.sno}" />"><span class="material-icons">edit</span></a>
+								<a href="<c:url value="/scribble/delete?sno=${slvo.sno}" />"><span class="material-icons">delete</span></a>
 							</span>
 						</div>
 					</div>
 					<div class="scribble-item-poster">
-						<img src="${sldto.fimg}" alt="${sldto.fname}" />
+						<img src="${slvo.fvo.fimg}" alt="${slvo.fvo.fname}" />
 					</div>
 				</div>
 				</c:forEach>
@@ -87,8 +85,19 @@
 <!-- profile -->
 <%@ include file="../inc/profile.jsp" %>
 <script>
+var order = '${shvo.order}';
+var pageLmt = '${shvo.pageLmt}';
+var option = '${shvo.option}';
 $('.search-btn').on('click', function() {
 	$('#list-search').submit();
+});
+$('.sort-order, .page-limit').on('change', function() {
+	$('#list-search').submit();
+});
+$(document).ready(function() {
+	if(order!=null) { $('.sort-order').val(order).prop('selected', true); } 
+	if(pageLmt!=null) { $('.page-limit').val(pageLmt).prop('selected', true); }
+	if(option!=null) { $('.search-option').val(option).prop('selected', true); }
 });
 </script>
 

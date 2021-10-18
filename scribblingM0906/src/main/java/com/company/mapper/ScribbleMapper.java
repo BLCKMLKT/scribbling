@@ -3,9 +3,10 @@ package com.company.mapper;
 import java.util.List;
 
 import com.company.dto.ScribbleVO;
+import com.company.dto.SearchVO;
 
 public interface ScribbleMapper {
-	public Integer insertScribble(ScribbleVO sdto);
-	public List<ScribbleVO> listScribble(Integer uno, int startNum, int pageLmt);
+	public Integer insertScribble(ScribbleVO svo);
+	public List<ScribbleVO> listScribble(SearchVO shvo);
 	public ScribbleVO detailScribble(Integer uno, Integer sno);
 }

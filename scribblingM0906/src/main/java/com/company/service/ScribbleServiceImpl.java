@@ -14,6 +14,7 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import com.company.dto.FilmVO;
 import com.company.dto.KinoVO;
 import com.company.dto.ScribbleVO;
+import com.company.dto.SearchVO;
 import com.company.dto.TagVO;
 import com.company.mapper.FilmMapper;
 import com.company.mapper.KinoMapper;
@@ -52,19 +53,19 @@ public class ScribbleServiceImpl implements ScribbleService {
 			kvo.setKname(request.getParameter("skino"));
 			kvo.setKcode(kmapper.searchKino(kvo.getKname()));
 			// 3. scribbles 테이블에 스크리블 등록
-			ScribbleVO svo = new ScribbleVO();
-			svo.setSdate(request.getParameter("sdate"));
-			svo.setUno((Integer) request.getSession().getServletContext().getContext("/lnscribbling").getAttribute("uno"));
-			svo.setFvo(fvo); svo.setKvo(kvo);
+			ScribbleVO shvo = new ScribbleVO();
+			shvo.setSdate(request.getParameter("sdate"));
+			shvo.setUno((Integer) request.getSession().getServletContext().getContext("/lnscribbling").getAttribute("uno"));
+			shvo.setFvo(fvo); shvo.setKvo(kvo);
 			String srateParam = request.getParameter("srate");
-			if(srateParam!=null) { svo.setSrate(Integer.parseInt(srateParam)); } 
-			svo.setScontent(request.getParameter("scontent"));
-			svo.setSip(InetAddress.getLocalHost().getHostAddress());
-			smapper.insertScribble(svo);
+			if(srateParam!=null) { shvo.setSrate(Integer.parseInt(srateParam)); } 
+			shvo.setScontent(request.getParameter("scontent"));
+			shvo.setSip(InetAddress.getLocalHost().getHostAddress());
+			smapper.insertScribble(shvo);
 			// 4. tag_library에서 tid 찾기
 			String[] tnames = request.getParameter("stags").split("\\|");
 			TagVO tvo = new TagVO();
-			tvo.setSno(svo.getSno()); tvo.setFcode(svo.getFvo().getFcode());
+			tvo.setSno(shvo.getSno()); tvo.setFcode(shvo.getFvo().getFcode());
 			for(int i=0; i<tnames.length; i++) {
 				tvo.setTname(tnames[i]);
 				tvo.setTid(tmapper.searchTaglib(tvo));
@@ -82,22 +83,26 @@ public class ScribbleServiceImpl implements ScribbleService {
 	@Override
 	public List<ScribbleVO> scribbleList(HttpServletRequest request) throws Exception {
 		request.setCharacterEncoding("UTF-8");
-		int startNum = 0; int pageLmt = 10;
-		Integer uno = (Integer) request.getSession().getServletContext().getContext("/lnscribbling").getAttribute("uno");
-		if(request.getParameter("startNum")!=null) {
-			startNum = Integer.parseInt(request.getParameter("startNum"));
+		SearchVO shvo = new SearchVO();
+		shvo.setUno((Integer) request.getSession().getServletContext().getContext("/lnscribbling").getAttribute("uno"));
+		shvo.setStartNum(0); shvo.setPageLmt(10); shvo.setOrder("lat");
+		if(request.getParameter("startNum")!=null) { // 페이지 시작 번호
+			shvo.setStartNum(Integer.parseInt(request.getParameter("startNum")));
+		} 
+		if(request.getParameter("page_limit")!=null) { // 한 페이지에 표시할 게시글 수
+			shvo.setPageLmt(Integer.parseInt(request.getParameter("page_limit")));
 		}
-		if(request.getParameter("pageLmt")!=null) {
-			pageLmt = Integer.parseInt(request.getParameter("pageLmt"));
+		if(request.getParameter("sort_order")!=null) { // 정렬
+			shvo.setOrder(request.getParameter("sort_order"));
 		}
-		List<ScribbleVO> sList = smapper.listScribble(uno, startNum, pageLmt);
-//		if(sList!=null) {
-//			for(int i=0; i<sList.size(); i++) {
-//				ScribbleVO temp = sList.get(i);
-//				List<String> tList = tmapper.listTags(temp.getSno());
-//				temp.setTags(tList);
-//			}
-//		}
+		if(request.getParameter("search_option")!=null) { // 검색 조건
+			shvo.setOption(request.getParameter("search_option"));
+		}
+		if(request.getParameter("search_input")!=null) { // 검색어
+			shvo.setKeyword(request.getParameter("search_input"));
+		}
+		List<ScribbleVO> sList = smapper.listScribble(shvo);
+		request.setAttribute("shvo", shvo); // 현재 설정 결과페이지에 넘기기
 		return sList;
 	}
 

@@ -9,5 +9,6 @@
 		<typeAlias alias="TagVO" type="com.company.dto.TagVO"/>
 		<typeAlias alias="KinoVO" type="com.company.dto.KinoVO" />
 		<typeAlias alias="BoxOfficeVO" type="com.company.dto.BoxOfficeVO"/>
+		<typeAlias alias="SearchVO" type="com.company.dto.SearchVO"/>
 	</typeAliases>
 </configuration>

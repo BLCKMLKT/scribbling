@@ -64,6 +64,8 @@ public class ScribbleController {
 	public String list_search(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
+		List<ScribbleVO> list = sservice.scribbleList(request);
+		request.setAttribute("list", list);
 		return "/scribble/list";
 	}
 	@RequestMapping(value="/delete", method=RequestMethod.GET)

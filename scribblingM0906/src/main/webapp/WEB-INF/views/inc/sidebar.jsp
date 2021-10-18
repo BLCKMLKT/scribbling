@@ -332,6 +332,7 @@
 		padding-right: 200px;
 	}
 	.list-sort, .list-search { display: flex; }
+	#list-search { display: flex; justify-content: space-between; width: 100%; }
 	.divider { font-size: 20px; }
 	.scribble-list-header select { border: none; }
 	.search-input { 

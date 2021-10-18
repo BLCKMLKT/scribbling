@@ -335,7 +335,7 @@ h3.panel-title {
 	color: #343E97;
 }
 .btn-prev, .btn-next { 
-	top: 50%;
+	top: 250px;
 	z-index: 2;
 	position: absolute;
 	background-color: transparent;
@@ -349,7 +349,7 @@ h3.panel-title {
 }
 .btn-prev.hidden, .btn-next.hidden { display: hidden; }
 .btn-prev { background: url('resources/images/chevron_left_black.png') no-repeat; }
-.btn-next { background: url('resources/images/chevron_right_black.png') no-repeat; }
+.btn-next { background: url('resources/images/chevron_right_black.png') no-repeat; right: 15%; }
 
 /* 12th August 2021 */
 .nav-tabs > li > a { margin: 0px; }

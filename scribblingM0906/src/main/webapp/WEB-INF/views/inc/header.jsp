@@ -320,24 +320,32 @@ input:focus { outline: none; }
 .main-panel:first-of-type { padding-top: 50px; }
 .main-panel { 
 	display: flex; 
-	flex-direction: row; 
-	flex-wrap: wrap; 
+	flex-direction: column;
 	padding: 50px 0px; 
 	overflow: hidden; 
 	height: auto; 
 	width: 70%; 
 	margin: 0 auto;
 }
+.main-panel-box {
+	display: flex; 
+	flex-direction: row; 
+	flex-wrap: wrap; 
+	overflow: hidden; 
+	height: auto; 
+	width: 100%; 
+	margin: 0 auto;
+	align-items: center;
+}
 h3.panel-title { 
 	padding: 10px 30px;
 	letter-spacing: 2px;
 	font-weight: bold;
 	color: #343E97;
+	width: 100%;
 }
 .btn-prev, .btn-next { 
-	top: 250px;
 	z-index: 2;
-	position: absolute;
 	background-color: transparent;
 	border: none;
 	font-size: 30px;
@@ -348,8 +356,8 @@ h3.panel-title {
     width: 48px;
 }
 .btn-prev.hidden, .btn-next.hidden { display: hidden; }
-.btn-prev { background: url('resources/images/chevron_left_black.png') no-repeat; }
-.btn-next { background: url('resources/images/chevron_right_black.png') no-repeat; right: 15%; }
+.btn-prev { background: url('resources/images/chevron_left_black.png') no-repeat; margin-right: -48px; }
+.btn-next { background: url('resources/images/chevron_right_black.png') no-repeat; margin-left: -48px; }
 
 /* 12th August 2021 */
 .nav-tabs > li > a { margin: 0px; }

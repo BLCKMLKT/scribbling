@@ -12,6 +12,7 @@
 		<result column="sdate" property="sdate" />
 		<result column="srate" property="srate" />
 		<result column="spublishdate" property="spublishdate"/>
+		<result column="scontent" property="scontent" />
 		<association property="fvo" javaType="FilmVO">
 			<result column="fname" property="fname"/>
 			<result column="fimg" property="fimg"/>
@@ -51,7 +52,7 @@
 	</insert>
 	
 	<select id="listScribble" parameterType="SearchVO" resultMap="ScribbleListMap">
-		SELECT s.sno, s.sdate, s.srate, f.fname, f.fimg, k.kname, s.spublishdate, tl.tname
+		SELECT s.sno, s.sdate, s.srate, s.spublishdate, s.scontent, f.fname, f.fimg, k.kname, tl.tname
 		FROM scribbles as s
 		JOIN films as f ON s.fcode=f.fcode
 		JOIN kinos as k ON s.kcode=k.kcode

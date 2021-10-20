@@ -5,17 +5,19 @@
 <div class="container-full">
 	<div class="main-panel">
 		<h3 class="panel-title">박스오피스 순위</h3>
-		<div class="boxoffice-box">
-			<c:forEach var="bovo" items="${boxoffice}" varStatus="status">
-				<div class="boxoffice-item">
-					<span class="boxoffice-rank">${status.index+1}</span>
-					<p class="poster"><img src="${bovo.fimg}" class="img-rounded" alt="" /></p>
-					<p class="title">${bovo.fname}</p>
-				</div>
-			</c:forEach>
+		<div class="main-panel-box">
+			<button type='button' class='btn-prev hidden'></button>
+			<div class="boxoffice-box">
+				<c:forEach var="bovo" items="${boxoffice}" varStatus="status">
+					<div class="boxoffice-item">
+						<span class="boxoffice-rank">${status.index+1}</span>
+						<p class="poster"><img src="${bovo.fimg}" class="img-rounded" alt="" /></p>
+						<p class="title">${bovo.fname}</p>
+					</div>
+				</c:forEach>
+			</div>
+			<button type='button' class='btn-next'></button>
 		</div>
-		<button type='button' class='btn-prev hidden'></button>
-		<button type='button' class='btn-next'></button>
 	</div>
 	<hr class="solid">
 	<div class="main-panel">
@@ -95,7 +97,8 @@ $(function(){
     });
     
     $('.boxoffice-box').on('afterChange', function (event, slick, currentSlide) {
-        if(currentSlide === 5) { $('.btn-next').addClass('hidden'); }
+        var lastSlide = 10 - slick.slickGetOption('slidesToShow');
+    	if(currentSlide === lastSlide) { $('.btn-next').addClass('hidden'); }
         else { $('.btn-next').removeClass('hidden'); }
         if(currentSlide === 0) { $('.btn-prev').addClass('hidden'); }
         else { $('.btn-prev').removeClass('hidden'); }

@@ -51,7 +51,7 @@
 							<c:forEach var="i" begin="1" end="${5-slvo.srate}" step="1">☆ </c:forEach>
 							</span>
 							<span class="info-item-tags">
-							<c:forEach var="tag" items="${slvo.tags}"># ${tag.tname} </c:forEach>
+							<c:forEach var="tag" items="${slvo.tags}">#${tag.tname} </c:forEach>
 							</span>
 						</div>
 						<div class="info-item-content">
@@ -62,9 +62,9 @@
 						</div>
 						<div class="info-item-foot">
 							<span class="info-item-publishdate">${fn:substring(slvo.spublishdate, 0, 19)}</span>
-							<span class="info-item-btns">
-								<span class="material-icons">favorite</span>
-								<span class="favorite">count</span>
+							<span class="info-item-favorite">
+								<span class="material-icons favorite-icon">favorite</span>
+								<span class="favorite">0</span>
 							</span>
 						</div>
 					</div>
@@ -95,9 +95,9 @@ $('.sort-order, .page-limit').on('change', function() {
 	$('#list-search').submit();
 });
 $(document).ready(function() {
-	if(order!=null) { $('.sort-order').val(order).prop('selected', true); } 
-	if(pageLmt!=null) { $('.page-limit').val(pageLmt).prop('selected', true); }
-	if(option!=null) { $('.search-option').val(option).prop('selected', true); }
+	if(order!='') { $('.sort-order').val(order).prop('selected', true); } 
+	if(pageLmt!='') { $('.page-limit').val(pageLmt).prop('selected', true); }
+	if(option!='') { $('.search-option').val(option).prop('selected', true); }
 });
 </script>
 

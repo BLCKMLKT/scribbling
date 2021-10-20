@@ -358,8 +358,9 @@
 	.info-item-tags { font-weight: bold; color: #343E97; }
 	.info-item-content { margin: 15px 0px; flex-grow: 1; }
 	.info-item-foot { display: flex; justify-content: space-between; }
-	.info-item-btns a { color: #2d2c31; }
-	.info-item-btns a:hover { color: #96989a; }
+	.info-item-favorite { display: flex; justify-content: end; }
+	.favorite-icon { font-size: 18px; color: #343E97; align-self: center; }
+	.favorite { width: 30px; color: #343E97; font-weight: bold; text-align: right; }
 	.favorite-icons { cursor: pointer; color: #2d2c31; }
 	.favorite-icons:hover { text-decoration: none; color: #96989a; }
 	#writer-img { background-color: #2d2c31; border-radius: 30px; width: 30px; height: 30px; border: none;  }

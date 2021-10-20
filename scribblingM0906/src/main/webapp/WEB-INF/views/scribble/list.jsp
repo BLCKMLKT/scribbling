@@ -63,8 +63,8 @@
 						<div class="info-item-foot">
 							<span class="info-item-publishdate">${fn:substring(slvo.spublishdate, 0, 19)}</span>
 							<span class="info-item-btns">
-								<a href="<c:url value="/scribble/edit?sno=${slvo.sno}" />"><span class="material-icons">edit</span></a>
-								<a href="<c:url value="/scribble/delete?sno=${slvo.sno}" />"><span class="material-icons">delete</span></a>
+								<span class="material-icons">favorite</span>
+								<span class="favorite">count</span>
 							</span>
 						</div>
 					</div>

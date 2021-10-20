@@ -7,41 +7,38 @@
 		<div class="scribble-box">
 			<div class="scribble-head">
 				<div class="scribble-poster">
-					<img src="${sdto.}" alt=""/>
+					<img src="${svo.fvo.fimg}" alt="${svo.fvo.fname}"/>
 				</div>
 				<div class="scribble-subject">
-					<p class="scribble-date">0000/00/00</p>
-					<p class="scribble-title detail-title">영화 제목</p>
+					<p class="scribble-date">${svo.sdate}</p>
+					<p class="scribble-title detail-title">${svo.fvo.fname}</p>
 				</div>
-				<a href="<c:url value="/scribble/edit" />" class="material-icons scribble-edit">edit</a>
+				<a href="<c:url value="/scribble/edit?sno=${svo.sno}" />" class="material-icons scribble-edit">edit</a>
 				<a href="<c:url value="/scribble/list" />" class="material-icons scribble-exit">close</a>
 			</div>
 			<div class="scribble-info">
 				<div class="scribble-row1">
 					<div class="scribble-rate">
-						<span class="material-icons star">star_border</span>
-						<span class="material-icons star">star_border</span>
-						<span class="material-icons star">star_border</span>
-						<span class="material-icons star">star_border</span>
-						<span class="material-icons star">star_border</span>
+						<c:forEach var="i" begin="1" end="${svo.srate}">
+							<span class="material-icons star-view">star</span>
+						</c:forEach>
+						<c:forEach var="i" begin="1" end="${5-svo.srate}">
+							<span class="material-icons star-view">star_border</span>
+						</c:forEach>
 					</div>
 					<div class="scribble-kino">
-						<p class="detail-kino">영화관</p>
+						<p class="detail-kino">${svo.kvo.kname}</p>
 					</div>
 				</div>
 				<div class="scribble-row2">
 					<div class="scribble-filmInfo">
 						<p class="scribble-info-group">
-							<span class="scribble-info-title">개봉일</span>
-							<span class="scribble-info-item">0000.00.00</span>
-						</p>
-						<p class="scribble-info-group">
-							<span class="scribble-info-title">국가</span>
-							<span class="scribble-info-item">ㅇㅇㅇㅇ</span>
+							<span class="scribble-info-title">개봉연도</span>
+							<span class="scribble-info-item">${svo.fvo.frelease}</span>
 						</p>
 						<p class="scribble-info-group">
 							<span class="scribble-info-title">감독</span>
-							<span class="scribble-info-item">ㅇㅇㅇ</span>
+							<span class="scribble-info-item">${svo.fvo.fdirector}</span>
 						</p>
 					</div>
 					<div class="scribble-cast scribble-info-group">
@@ -49,16 +46,16 @@
 							<span>출연진</span>
 						</div>
 						<div class="scribble-info-item">
-							<p>ㅇㅇㅇ ㅇㅇㅇ ㅇㅇㅇ ㅇㅇㅇ ㅇㅇㅇ ㅇㅇㅇ ㅇㅇㅇ ㅇㅇㅇ ㅇㅇㅇ</p>
+							<p>${svo.fvo.fcast}</p>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="scribble-tag">
-				<span>tag1</span><span>tag2</span><span>tag3</span><span>tag4</span><span>tag5</span>
+				<c:forEach var="tag" items="${svo.tags}"><span class="tag-view"># ${tag.tname} </span></c:forEach>
 			</div>
 			<div class="scribble-content">
-				<p>스크리블 내용</p>
+				<p>${svo.scontent}</p>
 			</div>
 		</div>
 	</div>

@@ -49,7 +49,7 @@ public class ScribbleController {
 	@RequestMapping(value="/detail", method=RequestMethod.GET)
 	public String detail(HttpServletRequest request) throws Exception {
 		request.setCharacterEncoding("UTF-8");
-		request.setAttribute("sdto", sservice.scribbleDetail(request));
+		request.setAttribute("svo", sservice.scribbleDetail(request));
 		return "/scribble/detail";
 	}
 	@RequestMapping(value="/list", method=RequestMethod.GET)

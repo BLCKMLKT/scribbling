@@ -151,7 +151,6 @@
 	    padding: 10px;
 	    color: #96989a; 
 	}
-	.star { cursor: pointer; }
 	.scribble-kino {
 		width: 78%;
 		padding: 10px;
@@ -291,7 +290,7 @@
 		flex-direction: column;
 	}
 	.scribble-rate input[type=radio] { display: none; }
-	.star { font-size: 15px; margin-bottom: 0px; line-height: inherit; vertical-align: middle; }
+	.star { cursor: pointer; font-size: 15px; margin-bottom: 0px; line-height: inherit; vertical-align: middle; }
 	
 	.detail-title, .detail-kino { margin-bottom: 0px; margin-block-start: 0px; }
 	
@@ -367,6 +366,21 @@
 	#writer-name { margin-left: 5px; font-weight: bold; }
 		
 	/* detail */
+	.tag-view {
+	    font-weight: bold;
+	    border: 1px solid #96989a;
+	    border-radius: 15px;
+	    padding: 5px 10px;
+	    color: #343E97;
+	    margin: 0px 5px 0px 0px;
+	}
+	.star-view { 
+		font-size: 15px; 
+		margin-bottom: 0px; 
+		line-height: inherit; 
+		vertical-align: middle; 
+		color: #2d2c31;
+	}
   </style>
 </head>
 <body>

@@ -6,6 +6,7 @@
 	<resultMap type="TagVO" id="tagVO">
 		<result column="tname" property="tname"/>
 	</resultMap>
+	
 	<resultMap type="ScribbleVO" id="ScribbleListMap">
 		<result column="sno" property="sno" />
 		<result column="sdate" property="sdate" />
@@ -14,6 +15,24 @@
 		<association property="fvo" javaType="FilmVO">
 			<result column="fname" property="fname"/>
 			<result column="fimg" property="fimg"/>
+		</association>
+		<association property="kvo" javaType="KinoVO">
+			<result column="kname" property="kname"/>
+		</association>
+		<collection property="tags" resultMap="tagVO"/>
+	</resultMap>
+	
+	<resultMap type="ScribbleVO" id="ScribbleDetailMap">
+		<result column="sno" property="sno" />
+		<result column="sdate" property="sdate" />
+		<result column="srate" property="srate" />
+		<result column="scontent" property="scontent" />
+		<association property="fvo" javaType="FilmVO">
+			<result column="fname" property="fname"/>
+			<result column="fimg" property="fimg"/>
+			<result column="frelease" property="frelease"/>
+			<result column="fdirector" property="fdirector"/>
+			<result column="fcast" property="fcast"/>
 		</association>
 		<association property="kvo" javaType="KinoVO">
 			<result column="kname" property="kname"/>
@@ -62,10 +81,13 @@
 		LIMIT #{startNum}, #{pageLmt}
 	</select>
 	
-	<select id="detailScribble" parameterType="integer" resultType="ScribbleVO">
-		SELECT *
-		FROM scribbles
-		WHERE uno=#{param1}
-		AND sno=#{param2}
+	<select id="detailScribble" parameterType="integer" resultMap="ScribbleDetailMap">
+		SELECT f.fimg, f.fname, k.kname, s.sdate, s.srate, s.scontent, f.frelease, f.fdirector, f.fcast, tl.tname
+		FROM scribbles as s
+		JOIN films as f ON s.fcode=f.fcode
+		JOIN kinos as k ON s.kcode=k.kcode
+		JOIN tags as t ON s.sno=t.sno
+		LEFT JOIN tag_library as tl ON t.tid=tl.tid
+		WHERE s.uno=#{param1} AND s.sno=#{param2}
 	</select>
 </mapper>

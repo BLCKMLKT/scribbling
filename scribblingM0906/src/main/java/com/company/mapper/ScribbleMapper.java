@@ -9,4 +9,5 @@ public interface ScribbleMapper {
 	public Integer insertScribble(ScribbleVO svo);
 	public List<ScribbleVO> listScribble(SearchVO shvo);
 	public ScribbleVO detailScribble(Integer uno, Integer sno);
+	public void editScribble(ScribbleVO svo);
 }

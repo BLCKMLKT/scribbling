@@ -61,16 +61,16 @@
 		WHERE s.uno=#{uno}
 		<if test='option != null and keyword != null'>
 			<choose>
-			<when test='option eq "fname"'>
-				AND f.fname LIKE CONCAT('%', #{keyword}, '%')
-			</when>
-			<when test='option eq "kname"'>
-				AND k.kname LIKE CONCAT('%', #{keyword}, '%')
-			</when>
-			<when test='option eq "tname"'>
-				AND tl.tname LIKE CONCAT('%', #{keyword}, '%')
-			</when>
-		</choose>
+				<when test='option eq "fname"'>
+					AND f.fname LIKE CONCAT('%', #{keyword}, '%')
+				</when>
+				<when test='option eq "kname"'>
+					AND k.kname LIKE CONCAT('%', #{keyword}, '%')
+				</when>
+				<when test='option eq "tname"'>
+					AND tl.tname LIKE CONCAT('%', #{keyword}, '%')
+				</when>
+			</choose>
 		</if>
 		<choose>
 			<when test='order eq "lat"'> ORDER BY sno DESC </when>
@@ -91,4 +91,11 @@
 		LEFT JOIN tag_library as tl ON t.tid=tl.tid
 		WHERE s.uno=#{param1} AND s.sno=#{param2}
 	</select>
+	
+	<update id="editScribble">
+		UPDATE scribbles
+		(sdate, uno, fcode, kcode, srate, scontent, sip)
+		VALUES
+		(#{sdate}, #{uno}, #{fvo.fcode}, #{kvo.kcode}, #{srate}, #{scontent}, #{sip})
+	</update>
 </mapper>

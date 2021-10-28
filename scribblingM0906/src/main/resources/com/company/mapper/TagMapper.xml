@@ -36,4 +36,9 @@
 		ON t.tid=tl.tid
 		WHERE sno=#{value}
 	</select>
+	<delete id="deleteTag">
+		DELETE FROM tags
+		WHERE sno=${sno}
+		AND fcode=${fcode}
+	</delete>
 </mapper>

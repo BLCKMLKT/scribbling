@@ -33,7 +33,7 @@ public class ScribbleServiceImpl implements ScribbleService {
 	
 	@Transactional
 	@Override
-	public Integer insertScribble(HttpServletRequest request) throws Exception {
+	public Integer scribbleInsert(HttpServletRequest request) throws Exception {
 		request.setCharacterEncoding("UTF-8");
 		try {
 			// 1. films 테이블에서 fcode 찾기
@@ -111,5 +111,50 @@ public class ScribbleServiceImpl implements ScribbleService {
 		Integer uno = (Integer) request.getSession().getServletContext().getContext("/lnscribbling").getAttribute("uno");
 		Integer sno = Integer.parseInt(request.getParameter("sno"));
 		return smapper.detailScribble(uno, sno);
+	}
+
+	@Transactional
+	@Override
+	public int scribbleEdit(HttpServletRequest request) throws Exception {
+		request.setCharacterEncoding("UTF-8");
+		try {
+			// 1. kinos 테이블에서 kcode 찾기
+			KinoVO kvo = new KinoVO();
+			kvo.setKname(request.getParameter("skino"));
+			kvo.setKcode(kmapper.searchKino(kvo.getKname()));
+			// 2. films 테이블에서 fcode 찾기
+			FilmVO fvo = new FilmVO();
+			String param = request.getParameter("stitle");
+			String fname = param.substring(0, param.length()-6); // 개봉연도 제거
+			int frelease = Integer.parseInt(param.substring(param.length()-5, param.length()-1));
+			fvo.setFname(fname); fvo.setFrelease(frelease);
+			fvo.setFcode(fmapper.searchFilm(fvo)); // fcode 찾아오기
+			// 3. scribbles 테이블 수정
+			ScribbleVO shvo = new ScribbleVO();
+			shvo.setSno(Integer.parseInt(request.getParameter("sno")));
+			shvo.setSdate(request.getParameter("sdate")); shvo.setFvo(fvo); shvo.setKvo(kvo);
+			shvo.setUno((Integer) request.getSession().getServletContext().getContext("/lnscribbling").getAttribute("uno"));
+			String srateParam = request.getParameter("srate");
+			if(srateParam!=null) { shvo.setSrate(Integer.parseInt(srateParam)); } 
+			shvo.setScontent(request.getParameter("scontent"));
+			shvo.setSip(InetAddress.getLocalHost().getHostAddress());
+			smapper.editScribble(shvo);
+			// 4. 태그 수정
+			String[] tnames = request.getParameter("stags").split("\\|");
+			TagVO tvo = new TagVO();
+			tvo.setSno(shvo.getSno()); tvo.setFcode(shvo.getFvo().getFcode());
+			tmapper.deleteTag(tvo); // 기존 태그 삭제
+			for(int i=0; i<tnames.length; i++) {
+				tvo.setTname(tnames[i]);
+				tvo.setTid(tmapper.searchTaglib(tvo));
+				if(tvo.getTid()==null) { tmapper.insertTaglib(tvo); }
+				tmapper.insertTag(tvo);
+			} // tid 찾기 or 태그 라이브러리에 등록하기 & 태그 등록하기
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	    	TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+	        return -1; // 오류 발생 시 빠져나가기
+	    }
+		return 1;
 	}
 }

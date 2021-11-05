@@ -94,8 +94,16 @@
 	
 	<update id="editScribble">
 		UPDATE scribbles
-		(sdate, uno, fcode, kcode, srate, scontent, sip)
-		VALUES
-		(#{sdate}, #{uno}, #{fvo.fcode}, #{kvo.kcode}, #{srate}, #{scontent}, #{sip})
+		SET 
+			sdate=#{sdate},
+			fcode=#{fvo.fcode},
+			kcode=#{kvo.kcode},
+			srate=#{srate},
+			scontent=#{scontent},
+			sip=#{sip}
+		WHERE 
+			sno=#{sno}
+		AND 
+			uno=#{uno}
 	</update>
 </mapper>

@@ -76,7 +76,7 @@
 							<span class="tag-btn"># ${tag.tname}</span> 
 						</c:forEach>
 						<div class="tag-box">
-							<input type="hidden" id="scribble-tags" name="tags" required/>
+							<input type="hidden" id="scribble-tags" name="stags" required/>
 							<input type="text" id="scribble-tag" class="input-box" placeholder="#이 영화는 어떤 느낌?"/>
 							<div class="scribble-tag-result tag-result-set"></div>
 						</div>

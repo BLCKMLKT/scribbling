@@ -1,5 +1,6 @@
 package com.company.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.company.dto.ScribbleVO;

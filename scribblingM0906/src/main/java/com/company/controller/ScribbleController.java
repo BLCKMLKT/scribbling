@@ -44,10 +44,12 @@ public class ScribbleController {
 	public void edit(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
+		Integer sno = Integer.parseInt(request.getParameter("sno"));
 		PrintWriter out = response.getWriter();
 		Integer result = sservice.scribbleEdit(request);
 		if(result!=null&&result==1) { // 성공 페이지로 연결
-			out.println("<script>alert('성공'); location.href='" + request.getContextPath() + "/scribble/detail';</script>");
+			out.println("<script>alert('성공'); location.href='" + 
+			request.getContextPath() + "/scribble/detail?sno=" + sno + "';</script>");
 		} else { out.println("<script>alert('실패'); history.go(-1);</script>"); }
 	}
 	@RequestMapping(value="/detail", method=RequestMethod.GET)

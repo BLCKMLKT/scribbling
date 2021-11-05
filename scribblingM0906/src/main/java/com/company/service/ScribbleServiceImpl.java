@@ -1,6 +1,7 @@
 package com.company.service;
 
 import java.net.InetAddress;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -130,19 +131,22 @@ public class ScribbleServiceImpl implements ScribbleService {
 			fvo.setFname(fname); fvo.setFrelease(frelease);
 			fvo.setFcode(fmapper.searchFilm(fvo)); // fcode 찾아오기
 			// 3. scribbles 테이블 수정
-			ScribbleVO shvo = new ScribbleVO();
-			shvo.setSno(Integer.parseInt(request.getParameter("sno")));
-			shvo.setSdate(request.getParameter("sdate")); shvo.setFvo(fvo); shvo.setKvo(kvo);
-			shvo.setUno((Integer) request.getSession().getServletContext().getContext("/lnscribbling").getAttribute("uno"));
+			ScribbleVO svo = new ScribbleVO();
+			svo.setSno(Integer.parseInt(request.getParameter("sno")));
+			svo.setSdate(request.getParameter("sdate")); svo.setFvo(fvo); svo.setKvo(kvo);
+			svo.setUno((Integer) request.getSession().getServletContext().getContext("/lnscribbling").getAttribute("uno"));
 			String srateParam = request.getParameter("srate");
-			if(srateParam!=null) { shvo.setSrate(Integer.parseInt(srateParam)); } 
-			shvo.setScontent(request.getParameter("scontent"));
-			shvo.setSip(InetAddress.getLocalHost().getHostAddress());
-			smapper.editScribble(shvo);
+			if(srateParam!=null) { svo.setSrate(Integer.parseInt(srateParam)); } 
+			svo.setScontent(request.getParameter("scontent"));
+			svo.setSip(InetAddress.getLocalHost().getHostAddress());
+			smapper.editScribble(svo);
+			// HashMap<String, Object> map = new HashMap<String, Object>();
+			// map.put("svo", svo); map.put("kvo", shvo.getKvo()); map.put("fvo", shvo.getFvo());
+			// smapper.editScribble(map);
 			// 4. 태그 수정
 			String[] tnames = request.getParameter("stags").split("\\|");
 			TagVO tvo = new TagVO();
-			tvo.setSno(shvo.getSno()); tvo.setFcode(shvo.getFvo().getFcode());
+			tvo.setSno(svo.getSno()); tvo.setFcode(svo.getFvo().getFcode());
 			tmapper.deleteTag(tvo); // 기존 태그 삭제
 			for(int i=0; i<tnames.length; i++) {
 				tvo.setTname(tnames[i]);

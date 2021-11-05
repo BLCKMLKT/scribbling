@@ -34,8 +34,10 @@ $(function() {
 	if($('.tag-btn').length==5) { $('#scribble-tag').hide(); }
 });
 $(document).ready(function() {
-	$('input[name=srate]').val(srate).prop('checked', true);
-	star($('input[name=srate]').val(srate), 'star', '#2d2c31');
+	var id = 'rate' + srate;
+	$("#" + id).prop('checked', true);
+	id = 'label[for=' + id + ']';
+	star($(id), 'star', '#2d2c31');
 });
 $(".star").on('click' ,function() {
 	$(".star").off('mouseenter mouseleave');

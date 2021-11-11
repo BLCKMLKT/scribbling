@@ -87,12 +87,19 @@
 	}
 	.scribble-edit {
 		position: absolute;
-	    right: 50px;
-	    top: 22px;
-	    font-size: 25px;
+	    right: 40px;
+	    top: 23px;
+	    font-size: 24px;
 	    color: #2d2c31; 
 	}
-	.scribble-exit:hover, .scribble-edit:hover { color: #96989a; text-decoration: none; }
+	.scribble-delete {
+		position: absolute;
+	    right: 70px;
+	    top: 23px;
+	    font-size: 24px;
+	    color: #2d2c31; 
+	}
+	.scribble-exit:hover, .scribble-edit:hover, .scribble-delete:hover { color: #96989a; text-decoration: none; }
 	.scribble-date {
 	    font-size: 25px;
 	    color: #2d2c31;
@@ -262,6 +269,7 @@
 	.btn-round-light {
 		border: 1px solid #96989a;
 		background-color: transparent;
+		border-radius: 30px;
 	}
 	.btn-round-light:hover {
 		background-color: #2d2c31;
@@ -381,6 +389,27 @@
 		line-height: inherit; 
 		vertical-align: middle; 
 		color: #2d2c31;
+	}
+	
+	/* delete */
+	.password-check {
+		display: flex;
+		border-top: 1px solid #96989a;
+		padding-top: 20px;
+	}
+	.password-left { width: 20%; }
+	.password-right { width: 80%; }
+	#password { border-radius: 0; }
+	.password-desc { color: #96989a; margin-top: 5px; }
+	.btn-round-dim {
+		border: 1px solid #96989a;
+		background-color: #96989a;
+		border-radius: 30px;
+		color: white;
+	}
+	.btn-round-light:hover {
+		background-color: #2d2c31;
+		color: white;
 	}
   </style>
 </head>

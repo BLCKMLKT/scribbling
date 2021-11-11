@@ -79,7 +79,16 @@ public class ScribbleController {
 		return "/scribble/delete";
 	}
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
-	public void delete() {
+	public void delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		Integer result = sservice.scribbleDelete(request);
+		if(result!=null&&result==1) { // 성공 페이지로 연결
+			out.println("<script>alert('스크리블 삭제에 성공했습니다'); location.href='" + 
+			request.getContextPath() + "/scribble/list';</script>");
+		} else if (result==0) { out.println("<script>alert('비밀번호를 확인해주세요'); history.go(-1);</script>"); 
+		} else { out.println("<script>alert('스크리블 삭제에 실패했습니다'); history.go(-1);</script>"); }
 		
 	}
 }

@@ -9,4 +9,5 @@ public interface ScribbleService {
 	public List<ScribbleVO> scribbleList(HttpServletRequest request) throws Exception;
 	public ScribbleVO scribbleDetail(HttpServletRequest request) throws Exception;
 	public int scribbleEdit(HttpServletRequest request) throws Exception;
+	public int scribbleDelete(HttpServletRequest request) throws Exception;
 }

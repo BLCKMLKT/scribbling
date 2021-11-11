@@ -16,6 +16,7 @@ import com.company.dto.KinoVO;
 import com.company.dto.ScribbleVO;
 import com.company.dto.SearchVO;
 import com.company.dto.TagVO;
+import com.company.dto.UserVO;
 import com.company.mapper.FilmMapper;
 import com.company.mapper.KinoMapper;
 import com.company.mapper.ScribbleMapper;
@@ -140,9 +141,6 @@ public class ScribbleServiceImpl implements ScribbleService {
 			svo.setScontent(request.getParameter("scontent"));
 			svo.setSip(InetAddress.getLocalHost().getHostAddress());
 			smapper.editScribble(svo);
-			// HashMap<String, Object> map = new HashMap<String, Object>();
-			// map.put("svo", svo); map.put("kvo", shvo.getKvo()); map.put("fvo", shvo.getFvo());
-			// smapper.editScribble(map);
 			// 4. 태그 수정
 			String[] tnames = request.getParameter("stags").split("\\|");
 			TagVO tvo = new TagVO();
@@ -159,6 +157,32 @@ public class ScribbleServiceImpl implements ScribbleService {
 	    	TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 	        return -1; // 오류 발생 시 빠져나가기
 	    }
+		return 1;
+	}
+	
+	@Transactional
+	@Override
+	public int scribbleDelete(HttpServletRequest request) throws Exception {
+		request.setCharacterEncoding("UTF-8");
+		try {
+			// 1. 태그 삭제
+			TagVO tvo = new TagVO();
+			tvo.setSno(Integer.parseInt(request.getParameter("sno")));
+			tmapper.deleteTag(tvo);
+			// 2. 스크리블 삭제
+			UserVO uvo = new UserVO();
+			uvo.setUno((Integer) request.getSession().getServletContext().getContext("/lnscribbling").getAttribute("uno"));
+			uvo.setUpassword(request.getParameter("upassword"));
+			ScribbleVO svo = new ScribbleVO();
+			svo.setSno(tvo.getSno());
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("svo", svo); map.put("uvo", uvo);
+			smapper.deleteScribble(map);
+		} catch(Exception e) {
+			e.printStackTrace();
+	    	TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+	        return -1; // 오류 발생 시 빠져나가기
+		}
 		return 1;
 	}
 }

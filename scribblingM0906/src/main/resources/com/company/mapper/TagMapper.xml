@@ -38,7 +38,9 @@
 	</select>
 	<delete id="deleteTag">
 		DELETE FROM tags
-		WHERE sno=${sno}
-		AND fcode=${fcode}
+		WHERE sno=#{sno}
+		<if test="fcode != null">
+			AND fcode=#{fcode}
+		</if>
 	</delete>
 </mapper>

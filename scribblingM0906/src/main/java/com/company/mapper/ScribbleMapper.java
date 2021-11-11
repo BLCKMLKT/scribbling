@@ -11,4 +11,5 @@ public interface ScribbleMapper {
 	public List<ScribbleVO> listScribble(SearchVO shvo);
 	public ScribbleVO detailScribble(Integer uno, Integer sno);
 	public void editScribble(ScribbleVO svo);
+	public void deleteScribble(HashMap<String, Object> map);
 }

@@ -53,12 +53,11 @@
 	
 	<select id="listScribble" parameterType="SearchVO" resultMap="ScribbleListMap">
 		SELECT s.sno, s.sdate, s.srate, s.spublishdate, s.scontent, f.fname, f.fimg, k.kname, tl.tname
-		FROM scribbles as s
+		FROM (SELECT * FROM scribbles WHERE uno=#{uno} LIMIT #{startNum}, #{pageLmt}) as s
 		JOIN films as f ON s.fcode=f.fcode
 		JOIN kinos as k ON s.kcode=k.kcode
 		JOIN tags as t ON s.sno=t.sno
 		LEFT JOIN tag_library as tl ON t.tid=tl.tid
-		WHERE s.uno=#{uno}
 		<if test='option != null and keyword != null'>
 			<choose>
 				<when test='option eq "fname"'>
@@ -73,13 +72,12 @@
 			</choose>
 		</if>
 		<choose>
-			<when test='order eq "lat"'> ORDER BY sno DESC </when>
-			<when test='order eq "old"'> ORDER BY sno ASC </when>
-			<when test='order eq "hig"'> ORDER BY srate DESC </when>
-			<when test='order eq "low"'> ORDER BY srate ASC </when>
-			<otherwise> ORDER BY sno DESC </otherwise>
+			<when test='order eq "lat"'> ORDER BY s.sno DESC </when>
+			<when test='order eq "old"'> ORDER BY s.sno ASC </when>
+			<when test='order eq "hig"'> ORDER BY s.srate DESC </when>
+			<when test='order eq "low"'> ORDER BY s.srate ASC </when>
+			<otherwise> ORDER BY s.sno DESC </otherwise>
 		</choose>
-		LIMIT #{startNum}, #{pageLmt}
 	</select>
 	
 	<select id="detailScribble" parameterType="integer" resultMap="ScribbleDetailMap">
@@ -89,7 +87,8 @@
 		JOIN kinos as k ON s.kcode=k.kcode
 		JOIN tags as t ON s.sno=t.sno
 		LEFT JOIN tag_library as tl ON t.tid=tl.tid
-		WHERE s.uno=#{param1} AND s.sno=#{param2}
+		WHERE s.uno=#{param1} 
+		AND s.sno=#{param2}
 	</select>
 	
 	<update id="editScribble">
@@ -101,9 +100,20 @@
 			srate=#{srate},
 			scontent=#{scontent},
 			sip=#{sip}
-		WHERE 
-			sno=#{sno}
-		AND 
-			uno=#{uno}
+		WHERE sno=#{sno}
+		AND uno=#{uno}
 	</update>
+	
+	<delete id="deleteScribble">
+		DELETE FROM scribbles
+		WHERE sno 
+			= (SELECT result.target
+			FROM (SELECT s.sno as target
+			FROM scribbles as s
+			JOIN userinfo as u
+			WHERE s.suno=u.uno
+			AND u.uno=#{uvo.uno}
+			AND u.upassword=#{uvo.upassword}
+			AND s.sno=#{svo.sno}) result)
+	</delete>
 </mapper>

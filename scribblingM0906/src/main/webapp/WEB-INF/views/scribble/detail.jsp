@@ -14,6 +14,7 @@
 					<p class="scribble-title detail-title">${svo.fvo.fname}</p>
 				</div>
 				<a href="<c:url value="/scribble/edit?sno=${param.sno}" />" class="material-icons scribble-edit">edit</a>
+				<a href="<c:url value="/scribble/delete?sno=${param.sno}" />" class="material-icons scribble-delete">delete</a>
 				<a href="<c:url value="/scribble/list" />" class="material-icons scribble-exit">close</a>
 			</div>
 			<div class="scribble-info">

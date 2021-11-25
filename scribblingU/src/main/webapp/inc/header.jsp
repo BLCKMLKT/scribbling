@@ -624,11 +624,11 @@ h3.panel-title {
       		<a class="navbar-brand" href="${main}/main.do">Scribbling</a>
     	</div>
    		<ul class="nav navbar-nav navbar-right">
-   			<li>
+   			<%-- <li>
    				<div class="nav-search-bar">
    					<a href="${main}/search.do" class="material-icons search-icon">search</a>
    				</div>
-   			</li>
+   			</li> --%>
    			<c:if test="${uno==null}">
    				<c:set var="path" value="${pageContext.request.contextPath}/user/login.jsp" />
    				<c:if test="${pageContext.request.requestURI != path}">
@@ -640,7 +640,7 @@ h3.panel-title {
     			</c:if>
       		</c:if>
         	<c:if test="${uno!=null}">
-        		<li><a href='${main}/list.do' class="btn-nav">아카이빙</a></li>
+        		<li><a href='${main}/scribble/list' class="btn-nav">내 스크리블</a></li>
       			<li><a href='${pageContext.request.contextPath}/account/info' class="btn-nav">마이페이지</a></li>
 				<li><a href='${pageContext.request.contextPath}/account/logout' class="btn-nav">로그아웃</a></li>
       		</c:if>

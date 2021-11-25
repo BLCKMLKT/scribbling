@@ -16,7 +16,7 @@
 							<input type="date" class="scribble-date" min="1950-01-01" name="sdate" value="${svo.sdate}" />
 							<input type="text" class="scribble-title input-box" name="stitle" value="${svo.fvo.fname}(${svo.fvo.frelease})" readonly/> <!-- 그냥 텍스트로 -->
 						</div>
-						<a href="<c:url value="/scribble/list" />" class="material-icons scribble-exit">close</a>
+						<a href="<c:url value="/scribble/detail?sno=${param.sno}" />" class="material-icons scribble-exit">close</a>
 					</div>
 					<div class="scribble-info">
 						<div class="scribble-row1">

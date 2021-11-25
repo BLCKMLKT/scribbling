@@ -650,7 +650,7 @@ h3.panel-title {
    				<li><a href='${member}/account/join_page' class="btn-nav">회원가입</a></li>
       		</c:if>
         	<c:if test="${uno!=null}">
-        		<li><a href='${pageContext.request.contextPath}/scribble/list' class="btn-nav">내 스크리블링</a></li>
+        		<li><a href='${pageContext.request.contextPath}/scribble/list' class="btn-nav">내 스크리블</a></li>
       			<li><a href='${member}/account/info' class="btn-nav">마이페이지</a></li>
 				<li><a href='${member}/account/logout' class="btn-nav">로그아웃</a></li>
       		</c:if>

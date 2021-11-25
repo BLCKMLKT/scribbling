@@ -6,7 +6,7 @@
 <div class="main">
 	<div class="list-container">
 		<div class="left-list-bar">
-			<span class="list-bar-title">내 스크리블링</span>
+			<span class="list-bar-title">내 스크리블</span>
 		</div>
 		<div class="scribble-list-box">
 			<div class="scribble-list-header">
